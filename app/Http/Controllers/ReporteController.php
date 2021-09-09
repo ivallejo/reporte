@@ -281,8 +281,21 @@ class ReporteController extends Controller
 
     public function ejecucion_data()
     {
-        $data = DB::select("EXEC usp_reporte_ejec '2021'");
-        return response()->json(['data' => $data ], 201);
+        $data_ejec_2020 = DB::select("EXEC usp_reporte_ejec '2020'");
+        $data_ejec_2021 = DB::select("EXEC usp_reporte_ejec '2021'");
+        $data_ppto_2020 = DB::select("EXEC usp_reporte_ppto '2020'");
+        $data_ppto_2021 = DB::select("EXEC usp_reporte_ppto '2021'");
+        $data_com_2020  = DB::select("EXEC usp_reporte_com '2020'");
+        $data_com_2021  = DB::select("EXEC usp_reporte_com '2021'");
+
+        return response()->json([
+            'data_ejec_2020' => $data_ejec_2020, 
+            'data_ejec_2021' => $data_ejec_2021,
+            'data_ppto_2020' => $data_ppto_2020, 
+            'data_ppto_2021' => $data_ppto_2021,
+            'data_com_2020'  => $data_com_2020, 
+            'data_com_2021'  => $data_com_2021
+        ], 201);
     }
 
 }
