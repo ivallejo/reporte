@@ -21,24 +21,12 @@
     <table id="dataTable" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered" style="font-size: 12px;">
       <thead>
         <tr>
+          <th class="text-center">AGRUPADOR</th>
           <th class="text-center">CONCEPTO</th>
           <th class="text-center">FAMILIA DE PARTIDA</th>
           <th class="text-center">DETALLE</th>
-          <th class="text-center">ENERO</th>
-          <th class="text-center">FEBRERO</th>
-          <th class="text-center">MARZO</th>
-          <th class="text-center">ABRIL</th>
-          <th class="text-center">MAYO</th>
-          <th class="text-center">JUNIO</th>
-          <th class="text-center">JULIO</th>
-          <th class="text-center">AGOSTO</th>
-          <th class="text-center">SEPTIEMBRE</th>
-          <th class="text-center">OCTUBRE</th>
-          <th class="text-center">NOVIEMBRE</th>
-          <th class="text-center">DICIEMBRE</th>
           <th class="text-center">EJEC-2020 ENE-DIC</th>
           <th class="text-center">PPTO-2021 ENE-DIC</th>
-          
           <th class="text-center">EJEC-2020 ENE-JUN</th>
           <th class="text-center">AVANCE 2020</th>
           <th class="text-center">EJEC-2021 ENE-JUN</th>
@@ -57,24 +45,12 @@
       </tbody>
       <tfoot>
         <tr>
+          <th class="text-center">AGRUPADOR</th>
           <th class="text-center">CONCEPTO</th>
           <th class="text-center">FAMILIA DE PARTIDA</th>
           <th class="text-center">DETALLE</th>
-          <th class="text-center">ENERO</th>
-          <th class="text-center">FEBRERO</th>
-          <th class="text-center">MARZO</th>
-          <th class="text-center">ABRIL</th>
-          <th class="text-center">MAYO</th>
-          <th class="text-center">JUNIO</th>
-          <th class="text-center">JULIO</th>
-          <th class="text-center">AGOSTO</th>
-          <th class="text-center">SEPTIEMBRE</th>
-          <th class="text-center">OCTUBRE</th>
-          <th class="text-center">NOVIEMBRE</th>
-          <th class="text-center">DICIEMBRE</th>
           <th class="text-center">EJEC2020 ENEDIC</th>
           <th class="text-center">PPTO2021 ENEDIC</th>
-          
           <th class="text-center">EJEC-2020 ENE-JUN</th>
           <th class="text-center">AVANCE 2020</th>
           <th class="text-center">EJEC-2021 ENE-JUN</th>

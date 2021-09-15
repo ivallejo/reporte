@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Reporte;
+use App\ReporteAgrupador;
 use App\ReporteCategorizacion;
 use Illuminate\Http\Request;
 use DB;
@@ -282,19 +283,25 @@ class ReporteController extends Controller
     public function ejecucion_data()
     {
         $data_ejec_2020 = DB::select("EXEC usp_reporte_ejec '2020'");
+        $data_ejec_2020_ej = DB::select("EXEC usp_reporte_ejec '2020', '1'");
         $data_ejec_2021 = DB::select("EXEC usp_reporte_ejec '2021'");
+        $data_ejec_2021_ej = DB::select("EXEC usp_reporte_ejec '2021', '1'");
         $data_ppto_2020 = DB::select("EXEC usp_reporte_ppto '2020'");
         $data_ppto_2021 = DB::select("EXEC usp_reporte_ppto '2021'");
         $data_com_2020  = DB::select("EXEC usp_reporte_com '2020'");
         $data_com_2021  = DB::select("EXEC usp_reporte_com '2021'");
+        // $reporte_agrupador  = DB::table('reporte_agrupador')->get();
 
         return response()->json([
-            'data_ejec_2020' => $data_ejec_2020, 
-            'data_ejec_2021' => $data_ejec_2021,
+            'data_ejec_2020' => $data_ejec_2020,
+            'data_ejec_2020_ej' => $data_ejec_2020_ej, 
+            'data_ejec_2021' => $data_ejec_2021, 
+            'data_ejec_2021_ej' => $data_ejec_2021_ej,
             'data_ppto_2020' => $data_ppto_2020, 
             'data_ppto_2021' => $data_ppto_2021,
             'data_com_2020'  => $data_com_2020, 
-            'data_com_2021'  => $data_com_2021
+            'data_com_2021'  => $data_com_2021, 
+            // 'data_agrupador'  => $reporte_agrupador
         ], 201);
     }
 
