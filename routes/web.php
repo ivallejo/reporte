@@ -22,6 +22,10 @@ Route::post('saveData', 'ReporteController@save');
 Route::post('updateData', 'ReporteController@update');
 Route::get('/ejecucion', 'ReporteController@ejecucion');
 Route::post('/ejecucion/data', 'ReporteController@ejecucion_data');
+Route::get('/planilla', 'ReporteController@planilla');
+Route::post('/planilla/data', 'ReporteController@planilla_data');
+Route::get('/direcciones', 'ReporteController@direcciones');
+Route::post('/direcciones/data', 'ReporteController@direcciones_data');
 
 Route::get('/reporte', 'ReporteController@reporte');
 

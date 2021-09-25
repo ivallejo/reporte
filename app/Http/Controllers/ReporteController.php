@@ -305,4 +305,47 @@ class ReporteController extends Controller
         ], 201);
     }
 
+    public function planilla()
+    {
+        return view('reporte.planilla');
+    }
+
+    public function planilla_data()
+    {
+        $data_ejec_2020 = DB::select("EXEC usp_reporte_2_ejec '2020'");
+        $data_ppto_2021 = DB::select("EXEC usp_reporte_2_ppto '2021'");
+        $data_ejec_2020_ej = DB::select("EXEC usp_reporte_2_ejec '2020', '1'");
+        $data_ejec_2021_ej = DB::select("EXEC usp_reporte_2_ejec '2021', '1'");
+
+        return response()->json([
+            'data_ejec_2020' => $data_ejec_2020,
+            'data_ppto_2021' => $data_ppto_2021, 
+            'data_ejec_2020_ej' => $data_ejec_2020_ej, 
+            'data_ejec_2021_ej' => $data_ejec_2021_ej
+        ], 201);
+    }
+
+    public function direcciones()
+    {
+        return view('reporte.direcciones');
+    }
+
+    public function direcciones_data()
+    {
+        $data_base = DB::select("EXEC usp_reporte_3_base '2020'");
+        $data_ppto_egresos = DB::select("EXEC usp_reporte_3_ppto_egresos '2021'");
+        $data_ppto_ingresos = DB::select("EXEC usp_reporte_3_ppto_ingresos '2021'");
+        $data_ejec_ingresos = DB::select("EXEC usp_reporte_3_ejec_ingresos '2021'");
+        $data_ejec_egresos = DB::select("EXEC usp_reporte_3_ejec_egresos '2021'");
+        $data_com_egresos = DB::select("EXEC usp_reporte_3_com_egresos '2021'");
+
+        return response()->json([
+            'data_base' => $data_base,
+            'data_ppto_egresos' => $data_ppto_egresos, 
+            'data_ppto_ingresos' => $data_ppto_ingresos, 
+            'data_ejec_ingresos' => $data_ejec_ingresos, 
+            'data_ejec_egresos' => $data_ejec_egresos, 
+            'data_com_egresos' => $data_com_egresos
+        ], 201);
+    }
 }
