@@ -280,16 +280,23 @@ class ReporteController extends Controller
         return view('reporte.ejecucion');
     }
 
-    public function ejecucion_data()
+    public function ejecucion_data(Request $request)
     {
-        $data_ejec_2020 = DB::select("EXEC usp_reporte_ejec '2020'");
-        $data_ejec_2020_ej = DB::select("EXEC usp_reporte_ejec '2020', '1'");
-        $data_ejec_2021 = DB::select("EXEC usp_reporte_ejec '2021'");
-        $data_ejec_2021_ej = DB::select("EXEC usp_reporte_ejec '2021', '1'");
-        $data_ppto_2020 = DB::select("EXEC usp_reporte_ppto '2020'");
-        $data_ppto_2021 = DB::select("EXEC usp_reporte_ppto '2021'");
-        $data_com_2020  = DB::select("EXEC usp_reporte_com '2020'");
-        $data_com_2021  = DB::select("EXEC usp_reporte_com '2021'");
+        $req = $request->all();
+        $row = $req['trama'];
+        $colums = explode('¦', $row);
+        
+        $anoold = intval($colums[0]) -1;
+        // dd($colums[0]);
+
+        $data_ejec_2020 = DB::select("EXEC usp_reporte_ejec '".$anoold."','0','0';");
+        $data_ejec_2020_ej = DB::select("EXEC usp_reporte_ejec '".$anoold."','".$colums[1]."','1'");
+        $data_ejec_2021 = DB::select("EXEC usp_reporte_ejec '".$colums[0]."','0','0'");
+        $data_ejec_2021_ej = DB::select("EXEC usp_reporte_ejec '".$colums[0]."','".$colums[1]."','1'");
+        $data_ppto_2020 = DB::select("EXEC usp_reporte_ppto '".$anoold."'");
+        $data_ppto_2021 = DB::select("EXEC usp_reporte_ppto '".$colums[0]."'");
+        $data_com_2020  = DB::select("EXEC usp_reporte_com '".$anoold."'");
+        $data_com_2021  = DB::select("EXEC usp_reporte_com '".$colums[0]."'");
         // $reporte_agrupador  = DB::table('reporte_agrupador')->get();
 
         return response()->json([
@@ -310,12 +317,17 @@ class ReporteController extends Controller
         return view('reporte.planilla');
     }
 
-    public function planilla_data()
+    public function planilla_data(Request $request)
     {
-        $data_ejec_2020 = DB::select("EXEC usp_reporte_2_ejec '2020'");
-        $data_ppto_2021 = DB::select("EXEC usp_reporte_2_ppto '2021'");
-        $data_ejec_2020_ej = DB::select("EXEC usp_reporte_2_ejec '2020', '1'");
-        $data_ejec_2021_ej = DB::select("EXEC usp_reporte_2_ejec '2021', '1'");
+        $req = $request->all();
+        $row = $req['trama'];
+        $colums = explode('¦', $row);
+        $anoold = intval($colums[0]) -1;
+
+        $data_ejec_2020 = DB::select("EXEC usp_reporte_2_ejec '".$anoold."','0','0'");
+        $data_ppto_2021 = DB::select("EXEC usp_reporte_2_ppto '".$colums[0]."'");
+        $data_ejec_2020_ej = DB::select("EXEC usp_reporte_2_ejec '".$anoold."','".$colums[1]."','1'");
+        $data_ejec_2021_ej = DB::select("EXEC usp_reporte_2_ejec '".$colums[0]."','".$colums[1]."','1'");
 
         return response()->json([
             'data_ejec_2020' => $data_ejec_2020,
@@ -330,17 +342,21 @@ class ReporteController extends Controller
         return view('reporte.direcciones');
     }
 
-    public function direcciones_data()
+    public function direcciones_data(Request $request)
     {
-        $data_base = DB::select("EXEC usp_reporte_3_base '2020'");
+        $req = $request->all();
+        $row = $req['trama'];
+        $colums = explode('¦', $row);
+
+        // $data_base = DB::select("EXEC usp_reporte_3_base '2020'");
         $data_ppto_egresos = DB::select("EXEC usp_reporte_3_ppto_egresos '2021'");
         $data_ppto_ingresos = DB::select("EXEC usp_reporte_3_ppto_ingresos '2021'");
-        $data_ejec_ingresos = DB::select("EXEC usp_reporte_3_ejec_ingresos '2021'");
-        $data_ejec_egresos = DB::select("EXEC usp_reporte_3_ejec_egresos '2021'");
+        $data_ejec_ingresos = DB::select("EXEC usp_reporte_3_ejec_ingresos '".$colums[0]."','".$colums[1]."','1'");
+        $data_ejec_egresos = DB::select("EXEC usp_reporte_3_ejec_egresos '".$colums[0]."','".$colums[1]."','1'");
         $data_com_egresos = DB::select("EXEC usp_reporte_3_com_egresos '2021'");
 
         return response()->json([
-            'data_base' => $data_base,
+            // 'data_base' => $data_base,
             'data_ppto_egresos' => $data_ppto_egresos, 
             'data_ppto_ingresos' => $data_ppto_ingresos, 
             'data_ejec_ingresos' => $data_ejec_ingresos, 
@@ -348,4 +364,83 @@ class ReporteController extends Controller
             'data_com_egresos' => $data_com_egresos
         ], 201);
     }
+
+    public function fampartidas()
+    {
+        return view('reporte.fampartidas');
+    }
+
+    public function fampartidas_data(Request $request)
+    {
+        $req = $request->all();
+        $row = $req['trama'];
+        $colums = explode('¦', $row);
+        $anoold = intval($colums[0]) -1;
+        // $data_base = DB::select("EXEC usp_reporte_3_base '2020'");
+        $data_eje_2020_ej = DB::select("EXEC usp_reporte_4_ejec_ej '".$anoold."','".$colums[1]."','1'");
+        $data_eje_2021_ej = DB::select("EXEC usp_reporte_4_ejec_ej '".$colums[0]."','".$colums[1]."','1'");
+
+        return response()->json([
+            // 'data_base' => $data_base,
+            'data_eje_2020_ej' => $data_eje_2020_ej, 
+            'data_eje_2021_ej' => $data_eje_2021_ej
+        ], 201);
+    }
+
+    public function programas()
+    {
+        return view('reporte.programas');
+    }
+
+    public function programas_data(Request $request)
+    {   
+        $req = $request->all();
+        $row = $req['trama'];
+        $colums = explode('¦', $row);
+        $anoold = intval($colums[0]) -1;
+        // $data_base = DB::select("EXEC usp_reporte_5_base");
+        $data_eje_2020 = DB::select("EXEC usp_reporte_5_ejec '".$anoold."','0','0'");
+        $data_ppto_2021 = DB::select("EXEC usp_reporte_5_ppto '".$colums[0]."'");
+        $data_eje_2021 = DB::select("EXEC usp_reporte_5_ejec '".$colums[0]."','0','0'");
+        $data_eje_2020_ej = DB::select("EXEC usp_reporte_5_ejec  '".$anoold."','".$colums[1]."','1'");
+        $data_eje_2021_ej = DB::select("EXEC usp_reporte_5_ejec  '".$colums[0]."','".$colums[1]."','1'");
+
+        return response()->json([
+            // 'data_base' => $data_base,
+            'data_eje_2020' => $data_eje_2020, 
+            'data_ppto_2021' => $data_ppto_2021, 
+            'data_eje_2021' => $data_eje_2021, 
+            'data_eje_2020_ej' => $data_eje_2020_ej, 
+            'data_eje_2021_ej' => $data_eje_2021_ej
+        ], 201);
+    }
+
+    public function internacionalizacion()
+    {
+        return view('reporte.internacionalizacion');
+    }
+
+    public function internacionalizacion_data(Request $request)
+    {   
+        $req = $request->all();
+        $row = $req['trama'];
+        $colums = explode('¦', $row);
+        $anoold = intval($colums[0]) -1;
+        // $data_base = DB::select("EXEC usp_reporte_5_base");
+        $data_eje_2020 = DB::select("EXEC usp_reporte_5_ejec '".$anoold."','0','0'");
+        $data_ppto_2021 = DB::select("EXEC usp_reporte_5_ppto '".$colums[0]."'");
+        $data_eje_2021 = DB::select("EXEC usp_reporte_5_ejec '".$colums[0]."','0','0'");
+        $data_eje_2020_ej = DB::select("EXEC usp_reporte_5_ejec  '".$anoold."','".$colums[1]."','1'");
+        $data_eje_2021_ej = DB::select("EXEC usp_reporte_5_ejec  '".$colums[0]."','".$colums[1]."','1'");
+
+        return response()->json([
+            // 'data_base' => $data_base,
+            'data_eje_2020' => $data_eje_2020, 
+            'data_ppto_2021' => $data_ppto_2021, 
+            'data_eje_2021' => $data_eje_2021, 
+            'data_eje_2020_ej' => $data_eje_2020_ej, 
+            'data_eje_2021_ej' => $data_eje_2021_ej
+        ], 201);
+    }
+
 }

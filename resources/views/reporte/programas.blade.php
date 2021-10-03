@@ -2,11 +2,12 @@
 
 @section('content')
 
-<script type="text/javascript" src="{{ asset('js/planilla.js') }}"></script>
-
+<script type="text/javascript" src="{{ asset('js/programas.js') }}"></script>
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script> -->
+
 <!-- Latest compiled and minified CSS -->
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css"> -->
+
 <!-- Latest compiled and minified JavaScript -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script> -->
 
@@ -21,7 +22,6 @@
     </div>
   </div>
 </div>
-
 
 <div class="row text-center">
  
@@ -93,34 +93,36 @@
   <table id="dataTable" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered" style="font-size: 12px;">
       <thead>
         <tr>
-          <th class="text-center"></th>
-          <th class="text-center"></th>
-          <th class="text-center"></th>
-          <th class="text-center"> ENE-DIC EJEC-2020 </th>
-          <th class="text-center"> ENE-DIC PPTO-2020 </th>
-          <th class="text-center" id="hejec2020meses"> ENE-JUN EJEC-2020 </th>
-          <th class="text-center"> Avance 2020 </th>
-          <th class="text-center" id="hejec2021meses"> ENE-JUN EJEC-2021 </th>
-          <th class="text-center"> Avance 2021 </th>
-          <th class="text-center" id="hvar2021montomeses">VAR-ENE-JUN-2020-2021 Monto</th>
-          <th class="text-center" id="hvar2021pocentajemeses">VAR-ENE-JUN-2020-2021 %</th>
+          <th class="text-center">PROGRAMAS ACADÉMICOS</th>
+          <th class="text-center">PROGRAMAS ACADÉMICOS</th>
+          <th class="text-center">PROGRAMAS ACADÉMICOS</th>
+          <th class="text-center">EJECUCIÓN 2020</th>
+          <th class="text-center">PPTO-ACTUAL 2021</th>
+          <th class="text-center">EJECUCIÓN 2021</th>
+          <th class="text-center" id="hejec2020">EJEC-2020 ENE-JUN</th>
+          <th class="text-center">AVANCE 2020</th>
+          <th class="text-center" id="hejec2021">EJEC-2021 ENE-JUN</th>
+          <th class="text-center">AVANCE 2021</th>
+          <th class="text-center" id="hvarmontomeses">VAR ENE-JUN 2020-2021(MONTO)</th>
+          <th class="text-center" id="hvarpocentajemeses">VAR ENE-JUN 2020-2021(%)</th>
         </tr>
       </thead>
       <tbody id="tbody">
       </tbody>
       <tfoot>
         <tr>
-        <th class="text-center"></th>
-          <th class="text-center"></th>
-          <th class="text-center"></th>
-          <th class="text-center"> ENE-DIC EJEC-2020 </th>
-          <th class="text-center"> ENE-DIC PPTO-2020 </th>
-          <th class="text-center" id="fejec2020meses"> ENE-JUN EJEC-2020 </th>
-          <th class="text-center"> Avance 2020 </th>
-          <th class="text-center" id="fejec2021meses"> ENE-JUN EJEC-2021 </th>
-          <th class="text-center"> Avance 2021 </th>
-          <th class="text-center" id="fvar2021montomeses">VAR-ENE-JUN-2020-2021 Monto</th>
-          <th class="text-center" id="fvar2021pocentajemeses">VAR-ENE-JUN-2020-2021 %</th>
+          <th class="text-center">PROGRAMAS ACADÉMICOS</th>
+          <th class="text-center">PROGRAMAS ACADÉMICOS</th>
+          <th class="text-center">PROGRAMAS ACADÉMICOS</th>
+          <th class="text-center">EJECUCIÓN 2020</th>
+          <th class="text-center">PPTO-ACTUAL 2021</th>
+          <th class="text-center">EJECUCIÓN 2021</th>
+          <th class="text-center" id="fejec2020">EJEC-2020 ENE-JUN</th>
+          <th class="text-center">AVANCE 2020</th>
+          <th class="text-center" id="fejec2021">EJEC-2021 ENE-JUN</th>
+          <th class="text-center">AVANCE 2021</th>
+          <th class="text-center" id="fvarmontomeses">VAR ENE-JUN 2020-2021(MONTO)</th>
+          <th class="text-center" id="fvarpocentajemeses">VAR ENE-JUN 2020-2021(%)</th>
         </tr>
       </tfoot>
     </table>

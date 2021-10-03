@@ -1,21 +1,24 @@
 
 var arrData = [];
 $(async function() {
-     data = await getDataEjecucion();
+      // $('.selectpicker').selectpicker();
+     data = await getDataEjecucion(`2021¦1,2,3,4,5,6`);
      showData(data)
      createExcelExportXLXS();
+     btnSearch();
 });
 
 
 
-function getDataEjecucion() {
+function getDataEjecucion(trama) {
       return new Promise ( (resolve, reject) => {
             $.ajax({
                   url: '/planilla/data',
                   type: 'post',
                   dataType: 'json',
                   data: {
-                        "_token": tokenLaravel
+                        "_token": tokenLaravel,
+                        trama
                   },
                   success: function(resp) {
                         resolve(resp);
@@ -122,6 +125,8 @@ function showData(data) {
             // }
       });
 
+      $('#dataTable').DataTable().clear();
+      $('#dataTable').DataTable().destroy();
       $("#tbody").append(text)
       tableData = $('#dataTable').DataTable({
             // order : [[0, 'desc']],
@@ -159,14 +164,24 @@ function createExcelExportXLXS() {
 // arrData
       btnDownload.onclick = function () {
             
-            let cabeceras = "¦¦¦ENEDIC EJEC2020¦ENEDIC PPTO2021¦ENEJUN EJEC2020¦AVANCE 2020¦ENEJUN EJEC2021¦AVANCE EJEC 2021¦VAR ENE-JUN 2020-2021/Monto¦VAR ENE-JUN 2020-2021/%".split("¦");
+            let cabeceras = `¦¦¦ENEDIC EJEC2020¦ENEDIC PPTO2021¦${hejec2020meses.innerHTML}¦AVANCE 2020¦${hejec2021meses.innerHTML}¦AVANCE EJEC 2021¦${hvar2021montomeses.innerHTML}¦${hvar2021pocentajemeses.innerHTML}`.split("¦");
             let cells = []    
             let dataArray = []
             let index = 0;
             
-            dataArray.push(addRowExcel(cabeceras))
-            dataArray.push(addRowExcel(cabeceras))
-            dataArray.push(addRowExcel(cabeceras))
+            dataArray.push(addRowExcelnHeader(12))
+            dataArray.push(addRowExcelnHeader(12, 'REPORTE DE EJECUCIÓN PRESUPUESTAL 2021', 2, 11))
+            // dataArray.push(addRowExcelnHeader(12, 'Al cierre de Junio preliminar 2021 / En S/. 000', 2, 9))
+            dataArray.push(addRowExcelnHeader(12, '', 2, 9))
+
+            // cells = [] 
+            // cells.push({ value: 'REPORTE DE EJECUCIÓN PRESUPUESTAL 2021', colSpan: 2, fontSize: 11, bold: true, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
+            // dataArray.push({ cells: cells })
+            
+            // cells = [] 
+            // cells.push({ value: 'Al cierre de Junio preliminar 2021 / En S/. 000', colSpan: 2, fontSize: 9, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
+            // dataArray.push({ cells: cells })
+            // dataArray.push(addRowExcelnHeader(12))
 
             cells = []  
             cabeceras.forEach((row) => {
@@ -1071,4 +1086,58 @@ function addRowExcel(cabeceras){
             cells.push({ value: '',borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
       })
       return { cells }
+}
+
+// function addRowExcelnHeader(nHeader){
+//       let cells = []
+//       for (let index = 0; index < nHeader; index++) {
+//             cells.push({ value: '',borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
+//       }
+//       return { cells }
+// }
+
+function addRowExcelnHeader(nHeader, value = '', colSpan = 1, fontSize = 10){
+      let cells = []
+      for (let index = 0; index < nHeader; index++) {
+            cells.push({ value, colSpan, fontSize, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
+            value = ''
+            colSpan = 1            
+      }
+      return { cells }
+}
+
+
+function btnSearch() {
+
+      $('.btnsearch').click( async function() {
+            
+            var selectedDesde = $('#mesDesde').find('option:selected');
+            var selectedHasta = $('#mesHasta').find('option:selected');
+
+            let mesDesdeId = selectedDesde.val() * 1
+            let mesDesdeTexto = selectedDesde.text().substr(0,3)
+
+            let mesHastaId = selectedHasta.val() * 1
+            let mesHastaTexto = selectedHasta.text().substr(0,3)
+
+            var selected = [];
+      
+            for (let index = mesDesdeId; index <= mesHastaId; index++) {
+                  selected.push( index );
+            }
+
+            hejec2020meses.innerHTML = `${mesDesdeTexto}-${mesHastaTexto} EJEC-2020`
+            hejec2021meses.innerHTML = `${mesDesdeTexto}-${mesHastaTexto} EJEC-2021`
+            hvar2021montomeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-2020-2021 Monto`
+            hvar2021pocentajemeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-2020-2021 %`
+            
+            fejec2020meses.innerHTML = `${mesDesdeTexto}-${mesHastaTexto} EJEC-2020`
+            fejec2021meses.innerHTML = `${mesDesdeTexto}-${mesHastaTexto} EJEC-2021`
+            fvar2021montomeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-2020-2021 Monto`
+            fvar2021pocentajemeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-2020-2021 %`
+
+            console.log(selected.join(','))
+            data = await getDataEjecucion(`${ano.value}¦${selected.join(',')}`);
+            showData(data)
+      })
 }

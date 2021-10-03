@@ -26,6 +26,12 @@ Route::get('/planilla', 'ReporteController@planilla');
 Route::post('/planilla/data', 'ReporteController@planilla_data');
 Route::get('/direcciones', 'ReporteController@direcciones');
 Route::post('/direcciones/data', 'ReporteController@direcciones_data');
+Route::get('/fampartidas', 'ReporteController@fampartidas');
+Route::post('/fampartidas/data', 'ReporteController@fampartidas_data');
+Route::get('/programas', 'ReporteController@programas');
+Route::post('/programas/data', 'ReporteController@programas_data');
+Route::get('/internacionalizacion', 'ReporteController@internacionalizacion');
+Route::post('/internacionalizacion/data', 'ReporteController@internacionalizacion_data');
 
 Route::get('/reporte', 'ReporteController@reporte');
 

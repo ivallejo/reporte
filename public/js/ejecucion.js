@@ -2,23 +2,24 @@
 // let data;
 var arrData = [];
 $(async function() {
-     data = await getDataEjecucion();
-//      debugger
-     showData(data)
-     createExcelExportXLXS();
-//      console.log(data);
+      // $('.selectpicker').selectpicker();
+      data = await getDataEjecucion(`2021¦1,2,3,4,5,6`);
+      showData(data)
+      createExcelExportXLXS();
+      btnSearch();
 });
 
 
 
-function getDataEjecucion() {
+function getDataEjecucion(trama) {
       return new Promise ( (resolve, reject) => {
             $.ajax({
                   url: '/ejecucion/data',
                   type: 'post',
                   dataType: 'json',
                   data: {
-                        "_token": tokenLaravel
+                        "_token": tokenLaravel,
+                        trama
                   },
                   success: function(resp) {
                         resolve(resp);
@@ -71,81 +72,6 @@ function showData(data) {
       arrData = []
 
       $.each(data.data_ejec_2020, function (i, item) {
-            
-            // // Current Year
-            // // PTTO
-            // arrayFilterppto2021 = data_ppto_2021.filter( x => x.Nivel_4_DESC == item.Nivel_4_DESC)
-            // if( arrayFilterppto2021.length > 0) {
-            //       itemppto2021 = arrayFilterppto2021[0]
-            //       // debugger
-            //       // edppto2021 = entre1000(itemppto2021.ENERO * 1) + entre1000(itemppto2021.FEBRERO * 1) + entre1000(itemppto2021.MARZO * 1) + entre1000(itemppto2021.ABRIL * 1) + entre1000(itemppto2021.MAYO * 1) + entre1000(itemppto2021.JUNIO * 1) + entre1000(itemppto2021.JULIO * 1) + entre1000(itemppto2021.AGOSTO * 1) + entre1000(itemppto2021.SEPTIEMBRE * 1) + entre1000(itemppto2021.OCTUBRE * 1) + entre1000(itemppto2021.NOVIEMBRE * 1) + entre1000(itemppto2021.DICIEMBRE * 1);
-            //       edppto2021 = entre1000((itemppto2021.ENERO * 1) + (itemppto2021.FEBRERO * 1) + (itemppto2021.MARZO * 1) + (itemppto2021.ABRIL * 1) + (itemppto2021.MAYO * 1) + (itemppto2021.JUNIO * 1) + (itemppto2021.JULIO * 1) + (itemppto2021.AGOSTO * 1) + (itemppto2021.SEPTIEMBRE * 1) + (itemppto2021.OCTUBRE * 1) + (itemppto2021.NOVIEMBRE * 1) + (itemppto2021.DICIEMBRE * 1));
-            // } else {
-            //       edppto2021 = 0  
-            // }
-            
-            // debugger
-            // // EJEC
-            // arrayFiltereje2021 = data_eje_2021.filter( x => x.Nivel_4_DESC == item.Nivel_4_DESC)
-            // if( arrayFiltereje2021.length > 0) {
-            //       itemeje2021 = arrayFiltereje2021[0]
-            //       edeje2021 = entre1000((itemeje2021.ENERO * 1) + (itemeje2021.FEBRERO * 1) + (itemeje2021.MARZO * 1) + (itemeje2021.ABRIL * 1) + (itemeje2021.MAYO * 1) + (itemeje2021.JUNIO * 1) + (itemeje2021.JULIO * 1) + (itemeje2021.AGOSTO * 1) + (itemeje2021.SEPTIEMBRE * 1) + (itemeje2021.OCTUBRE * 1) + (itemeje2021.NOVIEMBRE * 1) + (itemeje2021.DICIEMBRE * 1));
-            // } else {
-            //       edeje2021 = 0  
-            // }
-            // // COM
-            // arrayFiltercom2021 = data_com_2021.filter( x => x.Nivel_4_DESC == item.Nivel_4_DESC)
-            // if( arrayFiltercom2021.length > 0) {
-            //       itemcom2021 = arrayFiltercom2021[0]
-            //       edcom2021 = entre1000((itemcom2021.ENERO * 1) + (itemcom2021.FEBRERO * 1) + (itemcom2021.MARZO * 1) + (itemcom2021.ABRIL * 1) + (itemcom2021.MAYO * 1) + (itemcom2021.JUNIO * 1) + (itemcom2021.JULIO * 1) + (itemcom2021.AGOSTO * 1) + (itemcom2021.SEPTIEMBRE * 1) + (itemcom2021.OCTUBRE * 1) + (itemcom2021.NOVIEMBRE * 1) + (itemcom2021.DICIEMBRE * 1));
-            // } else {
-            //       edcom2021 = 0  
-            // }
-
-            // // Last Year
-            // //EJEC
-            // edeje2020 = entre1000((item.ENERO * 1) + (item.FEBRERO * 1) + (item.MARZO * 1) + (item.ABRIL * 1) + (item.MAYO * 1) + (item.JUNIO * 1) + (item.JULIO * 1) + (item.AGOSTO * 1) + (item.SEPTIEMBRE * 1) + (item.OCTUBRE * 1) + (item.NOVIEMBRE * 1) + (item.DICIEMBRE * 1));
-            // edejec2020_ene_jun = entre1000((item.ENERO * 1) + (item.FEBRERO * 1) + (item.MARZO * 1) + (item.ABRIL * 1) + (item.MAYO * 1) + (item.JUNIO * 1));
-            
-            // avance_2020 = ((edejec2020_ene_jun/edeje2020) * 100).toFixed(); //Avance 2020
-            // avance_ejec_2021 = ((edeje2021/edppto2021) * 100).toFixed(); //Avance EJEC 2021
-            // var_eje_jun_2020_2021 = (((edeje2021/edejec2020_ene_jun)-1) * 100).toFixed(); // VAR ENE-JUN 2020-2021
-            // saldo_2021 = (( (edeje2021 + edcom2021) / edppto2021 ) * 100).toFixed(); // SALDO 2021 %
-
-            // if(avance_2020 == '-Infinity') avance_2020 = '0'
-            // if(avance_ejec_2021 == '-Infinity') avance_ejec_2021 = '0'
-            // if(var_eje_jun_2020_2021 == '-Infinity') var_eje_jun_2020_2021 = '0'
-            // if(saldo_2021 == '-Infinity') saldo_2021 = '0'
-
-            // text += `<tr>\
-            //             <td class="text-center" style="padding-right:30px"> ${ item.agrupador1 } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ item.agrupador2 } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ item.agrupador3 } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ entre1000tofixed2(item.ENERO) } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ entre1000tofixed2(item.FEBRERO) } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ entre1000tofixed2(item.MARZO) } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ entre1000tofixed2(item.ABRIL) } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ entre1000tofixed2(item.MAYO) } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ entre1000tofixed2(item.JUNIO) } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ entre1000tofixed2(item.JULIO) } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ entre1000tofixed2(item.AGOSTO) } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ entre1000tofixed2(item.SEPTIEMBRE) } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ entre1000tofixed2(item.OCTUBRE) } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ entre1000tofixed2(item.NOVIEMBRE) } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ entre1000tofixed2(item.DICIEMBRE) } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ edeje2020.toFixed() } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ edppto2021.toFixed() } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ edejec2020_ene_jun.toFixed() } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ avance_2020 }% </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ edeje2021.toFixed() } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ avance_ejec_2021 }% </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ edcom2021.toFixed()} </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ (edeje2021 + edcom2021).toFixed() } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ (edeje2021 - edejec2020_ene_jun).toFixed() } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ var_eje_jun_2020_2021 }% </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ (edppto2021 - (edeje2021 + edcom2021)).toFixed() } </td>\
-            //             <td class="text-center" style="padding-right:30px"> ${ saldo_2021 }% </td>\
-            //          </tr>`;
             
             // EJEC <=============
             // 2020 - 1/6  <=====
@@ -244,6 +170,9 @@ function showData(data) {
                   col12 : col12,
             })
       });
+
+      $('#dataTable').DataTable().clear();
+      $('#dataTable').DataTable().destroy();
       $("#tbody").append(text)
       tableData = $('#dataTable').DataTable({
             order : [[0, 'desc']],
@@ -278,18 +207,28 @@ function showData(data) {
 }
 
 function createExcelExportXLXS() {
-// arrData
+      // arrData
       btnDownload.onclick = function () {
             // let cabeceras = "CONCEPTO¦FAMILIA DE PARTIDA¦DETALLE¦ENERO¦FEBRERO¦MARZO¦ABRIL¦MAYO¦JUNIO¦JULIO¦AGOSTO¦SEPTIEMBRE¦OCTUBRE¦NOVIEMBRE¦DICIEMBRE¦EJEC2020 ENEDIC¦PPTO2021 ENEDIC¦EJEC2020 ENEJUN¦AVANCE 2020¦EJEC2021 ENEJUN¦AVANCE EJEC 2021¦COMPROMISOS 2021¦EJEC+COMP 2021¦VAR ENE-JUN 2020-2021/Monto¦VAR ENE-JUN 2020-2021/%¦SALDO 2021/Monto¦SALDO 2021/%".split("¦");
-            let cabeceras = "CONCEPTO¦FAMILIA DE PARTIDA¦DETALLE¦EJEC2020 ENEDIC¦PPTO2021 ENEDIC¦EJEC2020 ENEJUN¦AVANCE 2020¦EJEC2021 ENEJUN¦AVANCE EJEC 2021¦COMPROMISOS 2021¦EJEC+COMP 2021¦VAR ENE-JUN 2020-2021/Monto¦VAR ENE-JUN 2020-2021/%¦SALDO 2021/Monto¦SALDO 2021/%".split("¦");
+            let cabeceras = `CONCEPTO¦FAMILIA DE PARTIDA¦DETALLE¦EJEC2020 ENEDIC¦PPTO2021 ENEDIC¦${hejec2020meses.innerHTML}¦AVANCE 2020¦${hejec2021meses.innerHTML}¦AVANCE EJEC 2021¦COMPROMISOS 2021¦EJEC+COMP 2021¦${hvar2021montomeses.innerHTML}¦${hvar2021pocentajemeses.innerHTML}¦SALDO 2021/Monto¦SALDO 2021/%`.split("¦");
             let cells = []    
             let dataArray = []
             let index = 0;
             
-            cabeceras.forEach((row) => {
-                  cells.push({ value: ''})
-            })
-            dataArray = [{ cells }]
+            dataArray.push(addRowExcelnHeader(15))
+            dataArray.push(addRowExcelnHeader(12, 'REPORTE DE EJECUCIÓN PRESUPUESTAL 2021', 2, 11))
+            // dataArray.push(addRowExcelnHeader(12, 'Al cierre de Junio preliminar 2021 / En S/. 000', 2, 9))
+            dataArray.push(addRowExcelnHeader(12, '', 2, 9))
+
+            // cells = [] 
+            // cells.push({ value: 'REPORTE DE EJECUCIÓN PRESUPUESTAL 2021', colSpan: 2, fontSize: 11, bold: true})
+            // dataArray.push({ cells: cells })
+            
+            // cells = [] 
+            // cells.push({ value: 'Al cierre de Junio preliminar 2021 / En S/. 000', colSpan: 2, fontSize: 9})
+            // dataArray.push({ cells: cells })
+            
+            dataArray.push(addRowExcelnHeader(15))
 
             cells = []  
             cabeceras.forEach((row) => {
@@ -716,4 +655,52 @@ function formatImport( value ) {
       } else {
             return (value.toFixed() * 1)//.toLocaleString('en') 
       }
+}
+
+function addRowExcelnHeader(nHeader, value = '', colSpan = 1, fontSize = 10){
+      let cells = []
+      for (let index = 0; index < nHeader; index++) {
+            cells.push({ value, colSpan, fontSize, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
+            value = ''
+            colSpan = 1            
+      }
+      return { cells }
+}
+
+function btnSearch() {
+
+      $('.btnsearch').click( async function() {
+            
+            var selectedDesde = $('#mesDesde').find('option:selected');
+            var selectedHasta = $('#mesHasta').find('option:selected');
+
+            let mesDesdeId = selectedDesde.val() * 1
+            let mesDesdeTexto = selectedDesde.text().substr(0,3)
+
+            let mesHastaId = selectedHasta.val() * 1
+            let mesHastaTexto = selectedHasta.text().substr(0,3)
+
+            var selected = [];
+      
+            for (let index = mesDesdeId; index <= mesHastaId; index++) {
+                  selected.push( index );
+            }
+
+            hejec2020meses.innerHTML = `EJEC-2020 ${mesDesdeTexto}-${mesHastaTexto}`
+            hejec2021meses.innerHTML = `EJEC-2021 ${mesDesdeTexto}-${mesHastaTexto}`
+            hvar2021montomeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-2020-2021 Monto`
+            hvar2021pocentajemeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-2020-2021 %`
+            
+            fejec2020meses.innerHTML = `EJEC-2020 ${mesDesdeTexto}-${mesHastaTexto}`
+            fejec2021meses.innerHTML = `EJEC-2021 ${mesDesdeTexto}-${mesHastaTexto}`
+            fvar2021montomeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-2020-2021 Monto`
+            fvar2021pocentajemeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-2020-2021 %`
+
+            // $(options).each(function(){
+            //       selected.push( $(this).val() );
+            // });
+            console.log(selected.join(','))
+            data = await getDataEjecucion(`${ano.value}¦${selected.join(',')}`);
+            showData(data)
+      })
 }

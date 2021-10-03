@@ -148,7 +148,7 @@
         </header>
 
         <main>
-            <section class="py-5 text-center container-fluid">
+            <section class="py-5 container-fluid">
                 @yield('content')
             </section>
         </main>

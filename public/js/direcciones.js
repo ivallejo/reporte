@@ -1,21 +1,24 @@
 
 var arrData = [];
 $(async function() {
-     data = await getDataEjecucion();
+      // $('.selectpicker').selectpicker();
+     data = await getDataEjecucion(`2021¦1,2,3,4,5,6`);
      showData(data)
      createExcelExportXLXS();
+     btnSearch();
 });
 
 
 
-function getDataEjecucion() {
+function getDataEjecucion(trama) {
       return new Promise ( (resolve, reject) => {
             $.ajax({
                   url: '/direcciones/data',
                   type: 'post',
                   dataType: 'json',
                   data: {
-                        "_token": tokenLaravel
+                        "_token": tokenLaravel,
+                        trama
                   },
                   success: function(resp) {
                         resolve(resp);
@@ -46,14 +49,15 @@ function showData(data) {
 
       arrData = []
 
-      $.each(data.data_base, function (i, item) {
+      $.each(data.data_ppto_ingresos, function (i, item) {
             
                   // PRESUPUESTO_ANUAL_2021 <=============
                   // INGRESOS  <=====
-                  arryCommon = [];
-                  arryCommon = data.data_ppto_ingresos.filter( x => x.Direccion == item.Direccion && x.Area == item.Area)
-                  if( arryCommon.length > 0) col1 = (arryCommon[0].Total*1)
-                  else col1 = 0
+                  // arryCommon = [];
+                  // arryCommon = data.data_ppto_ingresos.filter( x => x.Direccion == item.Direccion && x.Area == item.Area)
+                  // if( arryCommon.length > 0) col1 = (arryCommon[0].Total*1)
+                  // else col1 = 0
+                  col1 = (item.Total*1)
                   // EGRESOS  <=====
                   arryCommon = [];
                   arryCommon = data.data_ppto_egresos.filter( x => x.Direccion == item.Direccion && x.Area == item.Area)
@@ -131,6 +135,8 @@ function showData(data) {
             
       });
 
+      $('#dataTable').DataTable().clear();
+      $('#dataTable').DataTable().destroy();
       $("#tbody").append(text)
       tableData = $('#dataTable').DataTable({
             // order : [[0, 'desc']],
@@ -167,17 +173,31 @@ function showData(data) {
 function createExcelExportXLXS() {
 // arrData
       btnDownload.onclick = function () {
-            
-            let cabeceras0 = "DIRECCIÓN / UNIDAD¦PRESUPUESTO ANUAL 2021¦EJECUTADO ENE-JUN¦COMPROMISOS*¦SALDO 2021¦AVANCE 2021 (%)".split("¦");
+            var selectedDesde = $('#mesDesde').find('option:selected');
+            var selectedHasta = $('#mesHasta').find('option:selected');
+            let mesDesdeTexto = selectedDesde.text().substr(0,3)
+            let mesHastaTexto = selectedHasta.text().substr(0,3)
+
+            let cabeceras0 = `DIRECCIÓN / UNIDAD¦PRESUPUESTO ANUAL 2021¦EJECUTADO ${mesDesdeTexto}-${mesHastaTexto}*¦SALDO 2021¦AVANCE 2021 (%)`.split("¦");
             
             let cabeceras = "INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS".split("¦");
             let cells = []    
             let dataArray = []
             let index = 0;
             
+            
             dataArray.push(addRowExcelnHeader(12))
-            dataArray.push(addRowExcelnHeader(12))
-            dataArray.push(addRowExcelnHeader(12))
+            dataArray.push(addRowExcelnHeader(12, 'REPORTE DE EJECUCIÓN PRESUPUESTAL 2021', 3, 11))
+            // dataArray.push(addRowExcelnHeader(12, 'Al cierre de Junio preliminar 2021 / En S/. 000', 3, 9))
+            dataArray.push(addRowExcelnHeader(12, '', 3, 9))
+
+            // cells = [] 
+            // cells.push({ value: 'REPORTE DE EJECUCIÓN PRESUPUESTAL 2021', colSpan: 3, fontSize: 11, bold: true, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
+            // dataArray.push({ cells: cells })
+            
+            // cells = [] 
+            // cells.push({ value: 'Al cierre de Junio preliminar 2021 / En S/. 000', colSpan: 3, fontSize: 9, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
+            // dataArray.push({ cells: cells })
 
             cells = []
             for (let index = 0; index < 12; index++) {
@@ -486,10 +506,47 @@ function addRowExcel(cabeceras){
       return { cells }
 }
 
-function addRowExcelnHeader(nHeader){
+function addRowExcelnHeader(nHeader, value = '', colSpan = 1, fontSize = 10){
       let cells = []
       for (let index = 0; index < nHeader; index++) {
-            cells.push({ value: '',borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
+            cells.push({ value, colSpan, fontSize, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
+            value = ''
+            colSpan = 1            
       }
       return { cells }
+}
+
+
+function btnSearch() {
+
+      $('.btnsearch').click( async function() {
+            
+            var selectedDesde = $('#mesDesde').find('option:selected');
+            var selectedHasta = $('#mesHasta').find('option:selected');
+
+            let mesDesdeId = selectedDesde.val() * 1
+            let mesDesdeTexto = selectedDesde.text().substr(0,3)
+
+            let mesHastaId = selectedHasta.val() * 1
+            let mesHastaTexto = selectedHasta.text().substr(0,3)
+
+            var selected = [];
+      
+            for (let index = mesDesdeId; index <= mesHastaId; index++) {
+                  selected.push( index );
+            }
+
+            hejecutadoingresosmeses.innerHTML = `EJECUTADO_${mesDesdeTexto}-${mesHastaTexto}  INGRESOS`
+            hejecutadoegresosmeses.innerHTML = `EJECUTADO_${mesDesdeTexto}-${mesHastaTexto} EGRESOS`
+            
+            fejecutadoingresosmeses.innerHTML = `EJECUTADO_${mesDesdeTexto}-${mesHastaTexto}  INGRESOS`
+            fejecutadoegresosmeses.innerHTML = `EJECUTADO_${mesDesdeTexto}-${mesHastaTexto} EGRESOS`
+            
+            // $(options).each(function(){
+            //       selected.push( $(this).val() );
+            // });
+            console.log(selected.join(','))
+            data = await getDataEjecucion(`${ano.value}¦${selected.join(',')}`);
+            showData(data)
+      })
 }
