@@ -84,8 +84,8 @@ class ReporteController extends Controller
                     $flujo = ($colums[4] == '9') ? "Ingresos": "Egresos";  
                     
                     $importeS = "";
-                    if ( str_contains(trim($colums[0]), 'PPTO') )  $importeS = ($direccion == "NO CONSIDERAR") ? "" : (($colums[0] == "ING_PPTO") ? $colums[49] : ( ((float)$colums[49]) * -1 ));
-                    else $importeS = ($direccion == "NO CONSIDERAR") ? "" : (($colums[0] == "ING_PORCOB") ? $colums[49] : ( ((float)$colums[49]) * -1 ));
+                    if ( str_contains(trim($colums[0]), 'PPTO') )  $importeS = ($direccion == "NO CONSIDERAR") ? "0" : (($colums[0] == "ING_PPTO") ? $colums[49] : ( ((float)$colums[49]) * -1 ));
+                    else $importeS = ($direccion == "NO CONSIDERAR") ? "0" : (($colums[0] == "ING_PORCOB") ? $colums[49] : ( ((float)$colums[49]) * -1 ));
                     
                     $ImporteUSD = ($criterio == "") ? "0" : (($colums[0] == "ING_PORCOB") ? $colums[50] : ( ((float)$colums[50]) * -1 ));
                     
@@ -148,30 +148,32 @@ class ReporteController extends Controller
                         'TipoActividad' =>          $tipoactividad,
                         'Criterio' =>               $criterio,
                         'Flujo' =>                  $flujo,
-                        'ImporteS' =>               ( $importeS == '-' || $importeS == '-0' ) ? '': $importeS,
-                        'ImporteUSD' =>             ( $ImporteUSD == '-' || $ImporteUSD == '-0' ) ? '': $ImporteUSD,
+                        'ImporteS' =>               ( $importeS == '-' || $importeS == '-0' ) ? '0': $importeS,
+                        'ImporteUSD' =>             ( $ImporteUSD == '-' || $ImporteUSD == '-0' ) ? '0': $ImporteUSD,
                         'Categoria' =>              $categoria,
                     );
 
-                    // $exist = Reporte::where('Ledger', '=', $reporte['Ledger'])
-                            // ->where('Periodo_Presupuestal', '=', $reporte['Periodo_Presupuestal'])
-                            // ->where('Mes_Contable_mesN', '=', $reporte['Mes_Contable_mesN'])
-                            // ->where('Nivel_2_COD', '=', $reporte['Nivel_2_COD'])
-                            // ->where('Nivel_4_COD', '=', $reporte['Nivel_4_COD'])
-                            // ->where('Unidad_COD', '=', $reporte['Unidad_COD'])
-                            // ->where('Actividad_COD', '=', $reporte['Actividad_COD'])
-                            // ->where('Sede_COD', '=', $reporte['Sede_COD'])
-                            // ->where('Referencia_COD', '=', $reporte['Referencia_COD'])
-                            // ->where('Desc_Nro_Doc', '=', $reporte['Desc_Nro_Doc'])
-                            // ->exists();
-                    // if(!$exist) {
+                    $exist = Reporte::where('Ledger', '=', $reporte['Ledger'])
+                            ->where('Periodo_Presupuestal', '=', $reporte['Periodo_Presupuestal'])
+                            ->where('Mes_Contable_mesN', '=', $reporte['Mes_Contable_mesN'])
+                            ->where('Nivel_2_COD', '=', $reporte['Nivel_2_COD'])
+                            ->where('Nivel_4_COD', '=', $reporte['Nivel_4_COD'])
+                            ->where('Unidad_COD', '=', $reporte['Unidad_COD'])
+                            ->where('Actividad_COD', '=', $reporte['Actividad_COD'])
+                            ->where('Sede_COD', '=', $reporte['Sede_COD'])
+                            ->where('Referencia_COD', '=', $reporte['Referencia_COD'])
+                            ->where('Desc_Nro_Doc', '=', $reporte['Desc_Nro_Doc'])
+                            ->where('Linea_COD', '=', $reporte['Linea_COD'])
+                            ->exists();
+                    if(!$exist) {
                         $saved = Reporte::create($reporte);
                         if ( $reporte['Direccion'] == '' ||  $reporte['Area'] == '' ||  $reporte['TipoActividad'] == '' ||  $reporte['Criterio'] == '' ||  $reporte['Flujo'] == '' ||  $reporte['Categoria'] == '') {
                             $reporte['id'] = $saved->id;
                             array_push($data_response,$reporte);
                         }
-                    // } 
+                    } 
                 } else {
+                    // enviar mensaje para corregir importes en vacio
                     dd($colums);
                 }
                 
@@ -292,11 +294,11 @@ class ReporteController extends Controller
         $data_ejec_2020 = DB::select("EXEC usp_reporte_ejec '".$anoold."','0','0';");
         $data_ejec_2020_ej = DB::select("EXEC usp_reporte_ejec '".$anoold."','".$colums[1]."','1'");
         $data_ejec_2021 = DB::select("EXEC usp_reporte_ejec '".$colums[0]."','0','0'");
-        $data_ejec_2021_ej = DB::select("EXEC usp_reporte_ejec '".$colums[0]."','".$colums[1]."','1'");
+        $data_ejec_2021_ej = DB::select("EXEC usp_reporte_ejec_nuevo '".$colums[0]."','".$colums[1]."','1'");
         $data_ppto_2020 = DB::select("EXEC usp_reporte_ppto '".$anoold."'");
-        $data_ppto_2021 = DB::select("EXEC usp_reporte_ppto '".$colums[0]."'");
+        $data_ppto_2021 = DB::select("EXEC usp_reporte_ppto_nuevo '".$colums[0]."'");
         $data_com_2020  = DB::select("EXEC usp_reporte_com '".$anoold."'");
-        $data_com_2021  = DB::select("EXEC usp_reporte_com '".$colums[0]."'");
+        $data_com_2021  = DB::select("EXEC usp_reporte_com_nuevo '".$colums[0]."'");
         // $reporte_agrupador  = DB::table('reporte_agrupador')->get();
 
         return response()->json([
@@ -425,21 +427,21 @@ class ReporteController extends Controller
         $req = $request->all();
         $row = $req['trama'];
         $colums = explode('¦', $row);
-        $anoold = intval($colums[0]) -1;
+        // $anoold = intval($colums[0]) -1;
         // $data_base = DB::select("EXEC usp_reporte_5_base");
-        $data_eje_2020 = DB::select("EXEC usp_reporte_5_ejec '".$anoold."','0','0'");
-        $data_ppto_2021 = DB::select("EXEC usp_reporte_5_ppto '".$colums[0]."'");
-        $data_eje_2021 = DB::select("EXEC usp_reporte_5_ejec '".$colums[0]."','0','0'");
-        $data_eje_2020_ej = DB::select("EXEC usp_reporte_5_ejec  '".$anoold."','".$colums[1]."','1'");
-        $data_eje_2021_ej = DB::select("EXEC usp_reporte_5_ejec  '".$colums[0]."','".$colums[1]."','1'");
+        $data_ppto_2021_ing = DB::select("EXEC usp_reporte_7_ppto '".$colums[0]."','ING_PPTO', '".$colums[2]."'");
+        $data_ppto_2021_egr = DB::select("EXEC usp_reporte_7_ppto '".$colums[0]."','EGR_PPTO', '".$colums[2]."'");
+        $data_eje_2021_ing = DB::select("EXEC usp_reporte_7_ejec '".$colums[0]."','ING_PORCOB', '".$colums[1]."','1', '".$colums[2]."'");
+        $data_eje_2021_egr = DB::select("EXEC usp_reporte_7_ejec '".$colums[0]."','EGRESOS', '".$colums[1]."','1', '".$colums[2]."'");
+        $data_com_2021 = DB::select("EXEC usp_reporte_7_com  '".$colums[0]."', '".$colums[2]."'");
 
         return response()->json([
             // 'data_base' => $data_base,
-            'data_eje_2020' => $data_eje_2020, 
-            'data_ppto_2021' => $data_ppto_2021, 
-            'data_eje_2021' => $data_eje_2021, 
-            'data_eje_2020_ej' => $data_eje_2020_ej, 
-            'data_eje_2021_ej' => $data_eje_2021_ej
+            'data_ppto_2021_ing' => $data_ppto_2021_ing, 
+            'data_ppto_2021_egr' => $data_ppto_2021_egr, 
+            'data_eje_2021_ing' => $data_eje_2021_ing, 
+            'data_eje_2021_egr' => $data_eje_2021_egr, 
+            'data_com_2021' => $data_com_2021
         ], 201);
     }
 

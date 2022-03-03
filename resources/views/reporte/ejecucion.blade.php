@@ -17,7 +17,7 @@
 <div class="row">
   <div class="row ">
     <div class="col-12 text-center">
-      <h1 class="fw-light">REPORTE DE EJECUCIÓN PRESUPUESTAL 2021</h1>
+      <h1 class="fw-light">REPORTE DE EJECUCIÓN PRESUPUESTAL</h1>
     </div>
   </div>
 </div>

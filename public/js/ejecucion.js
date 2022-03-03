@@ -94,7 +94,7 @@ function showData(data) {
             if( arryCommon.length > 0) col2 = (arryCommon[0].Total*1)
             else col2 = 0
 
-            // COM <=============
+            // COM <==  ===========
             //2021 1/12  <=====
             arryCommon = [];
             arryCommon = data.data_com_2021.filter( x => x.Subcat_DESC == item.Subcat_DESC && x.Subcat_COD == item.Subcat_COD)
@@ -305,13 +305,13 @@ function createExcelExportXLXS() {
                         total_col9 = isNaN(total_col9) ? 0 : (total_col9*1)
 
                         total_col10 = total_col5 / total_col3
-                        total_col10 = isNaN(total_col10) ? 0 : ((total_col10 - 1)*100)
+                        total_col10 = isFinite(total_col10) ? isNaN(total_col10) ? 0 : ((total_col10 - 1)*100) : 0;
 
                         total_col11 = total_col2 - total_col8
-                        total_col11 = isNaN(total_col11) ? 0 : (total_col11*1)
+                        total_col11 = isFinite(total_col11) ? isNaN(total_col11) ? 0 : (total_col11*1) : 0
 
                         total_col12 = total_col8 / total_col2
-                        total_col12 = isNaN(total_col12) ? 0 : (total_col12*100)
+                        total_col12 = isFinite(total_col12) ? isNaN(total_col12) ? 0 : (total_col12*100) : 0
 
                         // Resultados Operativos
                         if ( Cat_DESC.includes('TRANSFERENCIA INTERNA') ) {
@@ -319,14 +319,18 @@ function createExcelExportXLXS() {
                               let totalro_col2 = arrTotales[0].col2 - arrTotales[1].col2;
                               let totalro_col3 = arrTotales[0].col3 - arrTotales[1].col3;
                               let totalro_col4 = totalro_col3 / totalro_col1;
+                              totalro_col4 = isFinite(totalro_col4) ? isNaN(totalro_col4) ? 0 : totalro_col4 : 0;
                               let totalro_col5 = arrTotales[0].col5 - arrTotales[1].col5;
                               let totalro_col6 = totalro_col5 / totalro_col2;
+                              totalro_col6 = isFinite(totalro_col6) ? isNaN(totalro_col6) ? 0 : totalro_col6 : 0;
                               let totalro_col7 = arrTotales[0].col7 - arrTotales[1].col7;
                               let totalro_col8 = arrTotales[0].col8 - arrTotales[1].col8; 
                               let totalro_col9 = arrTotales[0].col9 - arrTotales[1].col9;
                               let totalro_col10 = (totalro_col5 / totalro_col3) -1;
+                              totalro_col10 = isFinite(totalro_col10) ? isNaN(totalro_col10) ? 0 : totalro_col10 : 0;
                               let totalro_col11 = arrTotales[0].col11 - arrTotales[1].col11;
                               let totalro_col12 = totalro_col8 / totalro_col2;
+                              totalro_col12 = isFinite(totalro_col12) ? isNaN(totalro_col12) ? 0 : totalro_col12 : 0;
                               
                               cells = []
                               cells.push({ value: 'RESULTADO OPERATIVO', fontSize: 10, background: "#D3E8FF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
@@ -456,11 +460,15 @@ function createExcelExportXLXS() {
             totalrgi_col5 = isNaN(totalrgi_col5) ? 0 : isFinite(totalrgi_col5) ? totalrgi_col5: 0;
             totalrgi_col7 = isNaN(totalrgi_col7) ? 0 : isFinite(totalrgi_col7) ? totalrgi_col7: 0;
 
+            // debugger
             let totalrgi_col4 = totalrgi_col3 / totalrgi_col1;
+            totalrgi_col4 = isFinite(totalrgi_col4) ? isNaN(totalrgi_col4) ? 0 : totalrgi_col4 : 0;
             let totalrgi_col6 = totalrgi_col5 / totalrgi_col2;
+            totalrgi_col6 = isFinite(totalrgi_col6) ? isNaN(totalrgi_col6) ? 0 : totalrgi_col6 : 0;
             let totalrgi_col8 = totalrgi_col5 + totalrgi_col7; 
             let totalrgi_col9 = totalrgi_col5 - totalrgi_col3;
             let totalrgi_col10 = (totalrgi_col5 / totalrgi_col3) -1;
+            totalrgi_col10 = isFinite(totalrgi_col10) ? isNaN(totalrgi_col10) ? 0 : totalrgi_col10 : 0;
 
             cells = []
             cells.push({ value: '', fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
@@ -493,10 +501,13 @@ function createExcelExportXLXS() {
             totalrge_col7 = isNaN(totalrge_col7) ? 0 : isFinite(totalrge_col7) ? totalrge_col7: 0;
 
             let totalrge_col4 = totalrge_col3 / totalrge_col1;
+            totalrge_col4 = isFinite(totalrge_col4) ? isNaN(totalrge_col4) ? 0 : totalrge_col4 : 0;
             let totalrge_col6 = totalrge_col5 / totalrge_col2;
+            totalrge_col6 = isFinite(totalrge_col6) ? isNaN(totalrge_col6) ? 0 : totalrge_col6 : 0;
             let totalrge_col8 = totalrge_col5 + totalrge_col7; 
             let totalrge_col9 = totalrge_col5 - totalrge_col3;
             let totalrge_col10 = (totalrge_col5 / totalrge_col3) -1;
+            totalrge_col10 = isFinite(totalrge_col10) ? isNaN(totalrge_col10) ? 0 : totalrge_col10 : 0;
 
             cells = []
             cells.push({ value: '', fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
@@ -531,10 +542,13 @@ function createExcelExportXLXS() {
             totalei_col7 = isNaN(totalei_col7) ? 0 : isFinite(totalei_col7) ? totalei_col7: 0;
 
             let totalei_col4 = totalei_col3 / totalei_col1;
+            totalei_col4 = isFinite(totalei_col4) ? isNaN(totalei_col4) ? 0 : totalei_col4: 0;
             let totalei_col6 = totalei_col5 / totalei_col2;
+            totalei_col6 = isFinite(totalei_col6) ? isNaN(totalei_col6) ? 0 : totalei_col6: 0;
             let totalei_col8 = totalei_col5 + totalei_col7; 
             let totalei_col9 = totalei_col5 - totalei_col3;
             let totalei_col10 = (totalei_col5 / totalei_col3) -1;
+            totalei_col10 = isFinite(totalei_col10) ? isNaN(totalei_col10) ? 0 : totalei_col10: 0;
 
             cells = []
             cells.push({ value: '', fontSize: 10, background: "#D3E8FF", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })

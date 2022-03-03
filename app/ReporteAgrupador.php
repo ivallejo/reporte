@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReporteAgrupador extends Model
 {
-    protected $table = 'reporte_agrupador';
+    protected $table = 'finance_reporte_agrupador';
     protected $primaryKey = 'id';
     protected $fillable = [
       'agrupador1',

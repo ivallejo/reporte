@@ -15,7 +15,7 @@
 <div class="row">
   <div class="row ">
     <div class="col-lg-6 col-md-8 mx-auto">
-      <h1 class="fw-light">REPORTE DE EJECUCIÓN PRESUPUESTAL 2021</h1>
+      <h1 class="fw-light">REPORTE DE EJECUCIÓN PRESUPUESTAL</h1>
       <!-- <p class="lead text-muted"> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis perferendis, tenetur aliquid, voluptatum sint dolores enim atque in voluptas minima illum magni optio. Eligendi maxime porro quia atque in vero.</p> -->
       <!-- <p> -->
         <!-- <div class="mb-3"><button id="upload" class="btn btn-primary btn-primary-app"><i class="fas fa-cloud-download-alt"></i> Descargar </button></div> -->

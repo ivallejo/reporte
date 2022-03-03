@@ -4,6 +4,7 @@ $(async function() {
       // $('.selectpicker').selectpicker();
      data = await getDataEjecucion(`2021¦1,2,3,4,5,6`);
      showData(data)
+     preCreateExcelExportXLXS()
      createExcelExportXLXS();
      btnSearch();
 });
@@ -160,10 +161,24 @@ function showData(data) {
       })
 }
 
+function preCreateExcelExportXLXS() {
+      btnPreDownload.onclick = function () {
+            $('#exampleModal').modal('show')
+      }
+}
+
+
 function createExcelExportXLXS() {
 // arrData
       btnDownload.onclick = function () {
             
+            if( $("#HC1").val() == "" || $("#HC1").val() == "0" || $("#HC2").val() == "" || $("#HC2").val() == "0" || $("#HC3").val() == "" || $("#HC3").val() == "0" || $("#HC4").val() == "" || $("#HC4").val() == "0"){
+                  $('#msgError').show()
+                  return;
+            }
+
+            $("#msgError").hide()
+            $('#exampleModal').modal('hide')
             let cabeceras = `¦¦¦ENEDIC EJEC2020¦ENEDIC PPTO2021¦${hejec2020meses.innerHTML}¦AVANCE 2020¦${hejec2021meses.innerHTML}¦AVANCE EJEC 2021¦${hvar2021montomeses.innerHTML}¦${hvar2021pocentajemeses.innerHTML}`.split("¦");
             let cells = []    
             let dataArray = []
@@ -938,17 +953,37 @@ function createExcelExportXLXS() {
 
             // let totalrem_col5 = arrTotales[0].col5 + arrTotales[1].col5
 
+            let HC1 = $("#HC1").val() * 1
+            let HC2 = $("#HC2").val() * 1
+            let HC3 = $("#HC3").val() * 1
+            let HC4 = $("#HC4").val() * 1
+
+            let HC1T = HC1 + HC3
+            let HC2T = HC2 + HC4
+
+            let H1O = HC2T/HC1T;
+            H1O = isNaN(H1O) ? 0 : isFinite(H1O) ? ((H1O-1)) : 0;
+
+            let H2O = HC2/HC1;
+            H2O = isNaN(H2O) ? 0 : isFinite(H2O) ? ((H2O-1)) : 0;
+
+            let H3O = HC4/HC3;
+            H3O = isNaN(H3O) ? 0 : isFinite(H3O) ? ((H3O-1)) : 0;
+
+            let share1 = HC2/HC2T
+            let share2 = HC4/HC2T
+
             cells = []
             cells.push({ value: '', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: '', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: 'TOTAL PERSONAL', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: '', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
-            cells.push({ value: 0, type:"number", format: "0%", fontSize: 10, background: "#FFFFFF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
+            cells.push({ value: H1O, type:"number", format: "0.0%", fontSize: 10, background: "#FFFFFF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: '', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: '', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: 'PERSONAL DOCENTE', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: '', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
-            cells.push({ value: 0, type:"number", format: "0%", fontSize: 10, background: "#FFFFFF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
+            cells.push({ value: share1, type:"number", format: "0%", fontSize: 10, background: "#FFFFFF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: share_porcentaje_planilla_perdoc, type:"number", format: "0%", fontSize: 10, background: "#FFFFFF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             dataArray.push({ cells: cells })
             
@@ -957,12 +992,12 @@ function createExcelExportXLXS() {
             cells.push({ value: '', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: 'PERSONAL DOCENTE', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: '', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
-            cells.push({ value: 0, type:"number", format: "0%", fontSize: 10, background: "#FFFFFF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
+            cells.push({ value: H2O, type:"number", format: "0.0%", fontSize: 10, background: "#FFFFFF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: '', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: '', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: 'PERSONAL NO DOCENTE', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: '', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
-            cells.push({ value: 0, type:"number", format: "0%", fontSize: 10, background: "#FFFFFF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
+            cells.push({ value: share2, type:"number", format: "0%", fontSize: 10, background: "#FFFFFF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: share_porcentaje_planilla_pernnodoc, type:"number", format: "0%", fontSize: 10, background: "#FFFFFF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             dataArray.push({ cells: cells })
 
@@ -971,7 +1006,7 @@ function createExcelExportXLXS() {
             cells.push({ value: '', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: 'PERSONAL NO DOCENTE', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: '', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
-            cells.push({ value: 0, type:"number", format: "0%", fontSize: 10, background: "#FFFFFF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
+            cells.push({ value: H3O, type:"number", format: "0.0%", fontSize: 10, background: "#FFFFFF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             dataArray.push({ cells: cells })
             // 3ER CUADRO
 

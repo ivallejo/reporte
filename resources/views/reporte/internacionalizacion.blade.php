@@ -7,7 +7,7 @@
 <div class="row">
   <div class="row ">
     <div class="col-lg-6 col-md-8 mx-auto">
-      <h1 class="fw-light">REPORTE DE EJECUCIÓN PRESUPUESTAL 2021</h1>
+      <h1 class="fw-light">REPORTE DE EJECUCIÓN PRESUPUESTAL</h1>
       <!-- <p class="lead text-muted"> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis perferendis, tenetur aliquid, voluptatum sint dolores enim atque in voluptas minima illum magni optio. Eligendi maxime porro quia atque in vero.</p> -->
       <!-- <p> -->
         <!-- <div class="mb-3"><button id="upload" class="btn btn-primary btn-primary-app"><i class="fas fa-cloud-download-alt"></i> Descargar </button></div> -->
@@ -18,7 +18,15 @@
 
 <div class="row text-center">
  
-  <div class="col-3"></div>
+  <div class="col-1"></div>
+
+  <div class="col-lg-3 col-sm-12 col-md-2">
+    <div class="input-group mb-3">
+      <label class="form-control" for="">DIRECCIÓN</label>
+      <select class="selectpicker cmbCategoria form-select"  id="cmbCategoria">
+      </select>
+    </div>
+  </div>
 
   <div class="col-lg-2 col-sm-12 col-md-2">
     <div class="input-group mb-3">
@@ -71,7 +79,7 @@
       </select>
     </div>
   </div>
-  <div class="col-lg-2 col-sm-12 col-md-2">
+  <div class="col-lg-1 col-sm-12 col-md-2">
     <div class="form-group mb-3">
         <button type="button" id="btnSearch" class="btn btn-primary-app ml-1 btnsearch"><i class="fas fa-plus-search"></i> Buscar </button>
     </div>

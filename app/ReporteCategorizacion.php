@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReporteCategorizacion extends Model
 {
-    protected $table = 'reporte_categorizacion';
+    protected $table = 'finance_reporte_categorizacion';
     protected $primaryKey = 'id';
     protected $fillable = [
       'Chartfield',

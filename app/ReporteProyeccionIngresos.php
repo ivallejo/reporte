@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReporteProyeccionIngresos extends Model
 {
-    protected $table = 'reporte_proyeccion_ingresos';
+    protected $table = 'finance_reporte_proyeccion_ingresos';
     protected $primaryKey = 'id';
     protected $fillable = [
       'Procedencia',

@@ -168,7 +168,7 @@ function createExcelExportXLXS() {
 // arrData
       btnDownload.onclick = function () {
             
-            let cabeceras = `PROGRAMAS ACADÉMICOS¦EJECUCIÓN 2020¦PPTO ACTUAL 2021¦EJECUCIÓN 2021¦${hejec2020}¦Avance 2020¦${hejec2021}¦Avance 2021¦${hvarmontomeses}¦${hvarpocentajemeses}`.split("¦");
+            let cabeceras = `PROGRAMAS ACADÉMICOS¦EJECUCIÓN 2020¦PPTO ACTUAL 2021¦EJECUCIÓN 2021¦${hejec2020.innerHTML}¦Avance 2020¦${hejec2021.innerHTML}¦Avance 2021¦${hvarmontomeses.innerHTML}¦${hvarpocentajemeses.innerHTML}`.split("¦");
             
             let cells = []    
             let dataArray = []

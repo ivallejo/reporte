@@ -13,7 +13,7 @@
 <div class="row">
   <div class="row ">
     <div class="col-lg-6 col-md-8 mx-auto">
-      <h1 class="fw-light">REPORTE DE EJECUCIÓN PRESUPUESTAL 2021</h1>
+      <h1 class="fw-light">REPORTE DE EJECUCIÓN PRESUPUESTAL</h1>
       <!-- <p class="lead text-muted"> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis perferendis, tenetur aliquid, voluptatum sint dolores enim atque in voluptas minima illum magni optio. Eligendi maxime porro quia atque in vero.</p> -->
       <!-- <p> -->
         <!-- <div class="mb-3"><button id="upload" class="btn btn-primary btn-primary-app"><i class="fas fa-cloud-download-alt"></i> Descargar </button></div> -->
@@ -97,7 +97,7 @@
           <th class="text-center"></th>
           <th class="text-center"></th>
           <th class="text-center"> ENE-DIC EJEC-2020 </th>
-          <th class="text-center"> ENE-DIC PPTO-2020 </th>
+          <th class="text-center"> ENE-DIC PPTO-2021 </th>
           <th class="text-center" id="hejec2020meses"> ENE-JUN EJEC-2020 </th>
           <th class="text-center"> Avance 2020 </th>
           <th class="text-center" id="hejec2021meses"> ENE-JUN EJEC-2021 </th>
@@ -114,7 +114,7 @@
           <th class="text-center"></th>
           <th class="text-center"></th>
           <th class="text-center"> ENE-DIC EJEC-2020 </th>
-          <th class="text-center"> ENE-DIC PPTO-2020 </th>
+          <th class="text-center"> ENE-DIC PPTO-2021 </th>
           <th class="text-center" id="fejec2020meses"> ENE-JUN EJEC-2020 </th>
           <th class="text-center"> Avance 2020 </th>
           <th class="text-center" id="fejec2021meses"> ENE-JUN EJEC-2021 </th>
@@ -125,7 +125,57 @@
       </tfoot>
     </table>
   </div>
-  <div class="mb-3"><button id="btnDownload" class="btn btn-primary btn-primary-app"><i class="fas fa-cloud-download-alt"></i> Descargar </button></div>
+  <div class="mb-3"><button id="btnPreDownload" class="btn btn-primary btn-primary-app"><i class="fas fa-cloud-download-alt"></i> Descargar </button></div>
 </div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">EVOLUCIÓN HEAD COUNT</h5>
+        <button type="button" class="close" onclick="$('#exampleModal').modal('hide'); $('#msgError').hide();" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group row">
+            <label for="colFormLabelSm" class="col-sm-6 col-form-label col-form-label-sm">PERSONAL DOCENTE:</label>
+            <div class="col-sm-3">
+              <input type="number" class="form-control form-control-sm" id="HC1" value="0">
+            </div>
+            <div class="col-sm-3">
+              <input type="number" class="form-control form-control-sm" id="HC2" value="0">
+            </div>
+          </div>
+          <br>
+          <div class="form-group row">
+            <label for="colFormLabelSm" class="col-sm-6 col-form-label col-form-label-sm">PERSONAL NO DOCENTE:</label>
+            <div class="col-sm-3">
+              <input type="number" class="form-control form-control-sm" id="HC3" value="0">
+            </div>
+            <div class="col-sm-3">
+              <input type="number" class="form-control form-control-sm" id="HC4" value="0">
+            </div>
+          </div>
+        </form>
+        <br>
+
+        <div id="msgError" class="alert alert-danger" role="alert" style="display:none">
+          Ingrese los importes solicitados
+        </div>
+
+      </div>
+      <div class="modal-footer">
+
+        
+
+        <button type="button" class="btn btn-secondary" onclick="$('#exampleModal').modal('hide'); $('#msgError').hide();" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="btnDownload">Descargar</button>
+      </div>
+    </div>
+  </div>
+</div>  
 
 @endsection

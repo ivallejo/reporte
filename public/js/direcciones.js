@@ -170,6 +170,9 @@ function showData(data) {
       })
 }
 
+
+
+
 function createExcelExportXLXS() {
 // arrData
       btnDownload.onclick = function () {
@@ -178,7 +181,7 @@ function createExcelExportXLXS() {
             let mesDesdeTexto = selectedDesde.text().substr(0,3)
             let mesHastaTexto = selectedHasta.text().substr(0,3)
 
-            let cabeceras0 = `DIRECCIÓN / UNIDAD¦PRESUPUESTO ANUAL 2021¦EJECUTADO ${mesDesdeTexto}-${mesHastaTexto}*¦SALDO 2021¦AVANCE 2021 (%)`.split("¦");
+            let cabeceras0 = `DIRECCIÓN / UNIDAD¦PRESUPUESTO ANUAL 2021¦EJECUTADO ${mesDesdeTexto}-${mesHastaTexto}*¦COMPROMISOS*¦SALDO 2021¦AVANCE 2021 (%)`.split("¦");
             
             let cabeceras = "INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS".split("¦");
             let cells = []    
