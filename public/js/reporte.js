@@ -1,6 +1,8 @@
 let arrMaestros = [];
 let arrHistorial = [];
 var tableData;
+let archivo_numero;
+let archivo_ano;
 $(function () {
     configFile();
     configUpload();
@@ -28,6 +30,16 @@ function configFile() {
         filePicker: "<p><h3>Adjuntar Excel</h3></p>" + "<p>aqu&iacute;</p>",
         callbacks: {
             onSuccess: function (item, callback) {
+                let file_name = item.file.name
+                archivo_numero = file_name[0]
+
+                let i_file_name_without_extension = file_name.indexOf('.xlsx')
+                let file_name_without_extension = file_name.substring(0, i_file_name_without_extension)
+                archivo_ano = file_name_without_extension.substring(file_name_without_extension.length - 4)
+
+                console.log('archivo_numero', archivo_numero)
+                console.log('archivo_ano', archivo_ano)
+                
                 try {
                     $("#loading").show();
 
@@ -307,7 +319,9 @@ function configUpload() {
             let response;
             for (r = 0; r <= arrMaestros.length - 1; ++r) {
                 data = arrMaestros[r];
-                response = await sendData(data);
+                // debugger
+                let _data = archivo_numero + "─" + archivo_ano + "─" + data;
+                response = await sendData(_data);
                 if (!response.success) {
                     // Swal.fire({
                     //       title:'Atención!',

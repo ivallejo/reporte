@@ -68,6 +68,8 @@ class Reporte extends Model
       'Flujo',
       'ImporteS',
       'ImporteUSD',
-      'Categoria'
+      'Categoria',
+      'Año_archivo',
+      'Numero_archivo'
     ];
 }

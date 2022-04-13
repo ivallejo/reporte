@@ -21,9 +21,22 @@ class ReporteController extends Controller
         $req = $request->all();
         $arrData = $req['data'];
         // dd($request->all());
-        $rows = explode('¥', $arrData);
+
+        $data_explode = explode('─', $arrData);
+        $file_number = $data_explode[0];
+        $file_year = $data_explode[1];
+
+        // dd($data_explode[0]);
+        // dd($data_explode[1]);
+        // dd($data_explode[2]);
+
+        DB::table('finance_reporte')->where(['Año_archivo'=> $file_year, 'Numero_archivo'=> $file_number])->delete();
+
+        // dd($data_explode[2]);
+        $rows = explode('¥', $data_explode[2]);
         $colums = [];
         $data_response = [];
+        // $data_response_duplicados = [];
         foreach($rows as $row){
             $colums = explode('¦', $row);
             if ( trim($colums[0]) != '' && trim($colums[0]) != 'Total') {
@@ -151,33 +164,36 @@ class ReporteController extends Controller
                         'ImporteS' =>               ( $importeS == '-' || $importeS == '-0' ) ? '0': $importeS,
                         'ImporteUSD' =>             ( $ImporteUSD == '-' || $ImporteUSD == '-0' ) ? '0': $ImporteUSD,
                         'Categoria' =>              $categoria,
+                        'Año_archivo' =>            $file_year,
+                        'Numero_archivo' =>         $file_number,
                     );
 
-                    $exist = Reporte::where('Ledger', '=', $reporte['Ledger'])
-                            ->where('Periodo_Presupuestal', '=', $reporte['Periodo_Presupuestal'])
-                            ->where('Mes_Contable_mesN', '=', $reporte['Mes_Contable_mesN'])
-                            ->where('Nivel_2_COD', '=', $reporte['Nivel_2_COD'])
-                            ->where('Nivel_4_COD', '=', $reporte['Nivel_4_COD'])
-                            ->where('Unidad_COD', '=', $reporte['Unidad_COD'])
-                            ->where('Actividad_COD', '=', $reporte['Actividad_COD'])
-                            ->where('Sede_COD', '=', $reporte['Sede_COD'])
-                            ->where('Referencia_COD', '=', $reporte['Referencia_COD'])
-                            ->where('Desc_Nro_Doc', '=', $reporte['Desc_Nro_Doc'])
-                            ->where('Linea_COD', '=', $reporte['Linea_COD'])
-                            ->exists();
-                    if(!$exist) {
+                    // $exist = Reporte::where('Ledger', '=', $reporte['Ledger'])
+                    //         ->where('Periodo_Presupuestal', '=', $reporte['Periodo_Presupuestal'])
+                    //         ->where('Mes_Contable_mesN', '=', $reporte['Mes_Contable_mesN'])
+                    //         ->where('Nivel_2_COD', '=', $reporte['Nivel_2_COD'])
+                    //         ->where('Nivel_4_COD', '=', $reporte['Nivel_4_COD'])
+                    //         ->where('Unidad_COD', '=', $reporte['Unidad_COD'])
+                    //         ->where('Actividad_COD', '=', $reporte['Actividad_COD'])
+                    //         ->where('Sede_COD', '=', $reporte['Sede_COD'])
+                    //         ->where('Referencia_COD', '=', $reporte['Referencia_COD'])
+                    //         ->where('Desc_Nro_Doc', '=', $reporte['Desc_Nro_Doc'])
+                    //         ->where('Linea_COD', '=', $reporte['Linea_COD'])
+                    //         ->where('Cuenta_COD', '=', $reporte['Cuenta_COD'])
+                    //         ->exists();
+                    // if(!$exist) {
                         $saved = Reporte::create($reporte);
                         if ( $reporte['Direccion'] == '' ||  $reporte['Area'] == '' ||  $reporte['TipoActividad'] == '' ||  $reporte['Criterio'] == '' ||  $reporte['Flujo'] == '' ||  $reporte['Categoria'] == '') {
                             $reporte['id'] = $saved->id;
                             array_push($data_response,$reporte);
                         }
-                    } 
+                    // } else {
+                    //     array_push($data_response_duplicados,$reporte);
+                    // }
                 } else {
                     // enviar mensaje para corregir importes en vacio
                     dd($colums);
                 }
-                
-                
             }
         }
 
