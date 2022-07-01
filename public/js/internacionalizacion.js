@@ -17,10 +17,10 @@ function showFilter() {
             return unique;
         },[]);
       const unique10 = [...new Set(result2 .map(item => [item.Cat_COD, item.Cat_DESC]))];
-      
+
       var select = document.getElementById("cmbCategoria"); //Seleccionamos el select
-    
-      for(var i=0; i < unique10.length; i++){ 
+
+      for(var i=0; i < unique10.length; i++){
           var option = document.createElement("option"); //Creamos la opcion
           option.value = unique10[i][0];
           option.innerHTML = unique10[i][1]; //Metemos el texto en la opción
@@ -49,7 +49,7 @@ function getDataEjecucion(trama) {
 }
 
 function showData(data) {
-      
+
       $("#tbody").empty()
 
       let text = '';
@@ -67,10 +67,10 @@ function showData(data) {
 
       arrData = []
 
-      let arr     
+      let arr
 
       $.each(data.data_ppto_2021_ing, function (i, item) {
-            
+
             // PTTO <=============
             // 2021 INGRESO <=====
             col1 = (item.Total*1)
@@ -149,7 +149,7 @@ function showData(data) {
                   col9 : col9,
                   col10 : col10
             })
-            
+
       });
 
       $('#dataTable').DataTable().clear();
@@ -157,7 +157,7 @@ function showData(data) {
       $("#tbody").append(text)
       tableData = $('#dataTable').DataTable({
             // order : [[0, 'desc']],
-            language : {                    
+            language : {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
                 "sZeroRecords": "No se encontraron resultados",
@@ -179,7 +179,7 @@ function showData(data) {
                 "oAria": {
                     "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                }                
+                }
             },
             "drawCallback": function( settings ) {
                   // configActionTable()
@@ -197,11 +197,11 @@ function createExcelExportXLXS() {
             // let cabeceras = `DIRECCIÓN / UNIDAD¦PARTIDA¦DESCRIPCIÓN PARTIDA¦INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS¦EJECUCIÓN 2021¦${hejec2020}¦Avance 2020¦${hejec2021}¦Avance 2021¦${hvarmontomeses}¦${hvarpocentajemeses}`.split("¦");
             let cabeceras = `DIRECCIÓN / UNIDAD¦PARTIDA¦DESCRIPCIÓN PARTIDA¦PRESUPUESTO ANUAL 2021¦EJECUTADO ${mesDesdeTexto}-${mesHastaTexto}¦COMPROMISOS*¦SALDO 2021¦AVANCE 2021 (%)`.split("¦");
             let cabeceras2 = `INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS`.split("¦");
-            
-            let cells = []    
+
+            let cells = []
             let dataArray = []
             let index = 0;
-            
+
             dataArray.push(addRowExcelnHeader(11))
             dataArray.push(addRowExcelnHeader(11, 'REPORTE DE EJECUCIÓN PRESUPUESTAL 2021', 2, 11))
             // dataArray.push(addRowExcelnHeader(11, 'Al cierre de Junio preliminar 2021 / En S/. 000', 2, 9))
@@ -215,60 +215,60 @@ function createExcelExportXLXS() {
             }
             dataArray.push({ cells: cells })
 
-            cells = []  
+            cells = []
             cabeceras.forEach((row) => {
                   cells.push(
-                        { 
+                        {
                               value: row,
-                              colSpan: ( index == 0 || index >= 3 ) ? 2 : 1, 
+                              colSpan: ( index == 0 || index >= 3 ) ? 2 : 1,
                               rowSpan: ( index <= 2 ) ? 2 : 1,
-                              background: "#1f4e78", 
-                              textAlign: "center", 
+                              background: "#1f4e78",
+                              textAlign: "center",
                               verticalAlign: "center",
                               color: "#ffffff",
-                              fontSize: 10, 
-                              bold: true, 
-                              height: 500, 
+                              fontSize: 10,
+                              bold: true,
+                              height: 500,
                               wrap: true,
-                              borderBottom:  { color: "#000000", size: 1 } , 
-                              borderLeft: { color: "#000000", size: 1 }, 
-                              borderTop: { color: "#000000", size: 1 }, 
+                              borderBottom:  { color: "#000000", size: 1 } ,
+                              borderLeft: { color: "#000000", size: 1 },
+                              borderTop: { color: "#000000", size: 1 },
                               borderRight: { color: "#000000", size: 1 }
                         })
                   index++;
             })
             dataArray.push({ cells: cells })
 
-            cells = []  
+            cells = []
             cabeceras2.forEach((row) => {
                   cells.push(
-                        { 
+                        {
                               value: row,
-                              colSpan: 1, 
+                              colSpan: 1,
                               rowSpan: 1,
-                              background: "#1f4e78", 
-                              textAlign: "center", 
+                              background: "#1f4e78",
+                              textAlign: "center",
                               verticalAlign: "center",
                               color: "#ffffff",
-                              fontSize: 10, 
-                              bold: true, 
-                              height: 500, 
+                              fontSize: 10,
+                              bold: true,
+                              height: 500,
                               wrap: true,
-                              borderBottom:  { color: "#000000", size: 1 } , 
-                              borderLeft: { color: "#000000", size: 1 }, 
-                              borderTop: { color: "#000000", size: 1 }, 
+                              borderBottom:  { color: "#000000", size: 1 } ,
+                              borderLeft: { color: "#000000", size: 1 },
+                              borderTop: { color: "#000000", size: 1 },
                               borderRight: { color: "#000000", size: 1 }
                         })
                   index++;
             })
             dataArray.push({ cells: cells })
-            
+
             cells = []
             for (let index = 0; index < 5; index++) {
                   cells.push({ value: '',borderBottom: { color: "#fff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#000", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
             }
             dataArray.push({ cells: cells })
-            
+
             let Cat_DESC = ''
             let Subcat_DESC = ''
             let total_col1 = 0;
@@ -281,7 +281,7 @@ function createExcelExportXLXS() {
             let total_col8 = 0;
             let total_col9 = 0;
             let total_col10 = 0;
-            cells = [] 
+            cells = []
             $.each(arrData, function (i, item) {
 
                   if ( Cat_DESC.trim() != item.Cat_DESC.trim() ) {
@@ -292,7 +292,7 @@ function createExcelExportXLXS() {
                         total_col3 = arrData.reduce(function (acc, obj) { return acc + ( (obj.Cat_COD == item.Cat_COD) ? obj.col3 : 0 ) ; }, 0)
                         total_col4 = arrData.reduce(function (acc, obj) { return acc + ( (obj.Cat_COD == item.Cat_COD) ? obj.col4 : 0 ) ; }, 0)
                         total_col6 = arrData.reduce(function (acc, obj) { return acc + ( (obj.Cat_COD == item.Cat_COD) ? obj.col6 : 0 ) ; }, 0)
-                        
+
                         total_col5 = 0;
 
                         total_col7 = (+total_col1 - total_col3 - total_col5)
@@ -319,7 +319,7 @@ function createExcelExportXLXS() {
                         cells.push({ value: ((formatImport(total_col10) * 1)/100), type:"number", format: "0%", fontSize: 10, background: "#D3E8FF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                         dataArray.push({ cells })
 
-                        if ( Subcat_DESC.trim() != item.Subcat_DESC.trim() ) { 
+                        if ( Subcat_DESC.trim() != item.Subcat_DESC.trim() ) {
                               Subcat_DESC = item.Subcat_DESC
 
                               total_col1 = arrData.reduce(function (acc, obj) { return acc + ( (obj.Cat_COD == item.Cat_COD && obj.Subcat_COD == item.Subcat_COD) ? obj.col1 : 0 ) ; }, 0)
@@ -327,7 +327,7 @@ function createExcelExportXLXS() {
                               total_col3 = arrData.reduce(function (acc, obj) { return acc + ( (obj.Cat_COD == item.Cat_COD && obj.Subcat_COD == item.Subcat_COD) ? obj.col3 : 0 ) ; }, 0)
                               total_col4 = arrData.reduce(function (acc, obj) { return acc + ( (obj.Cat_COD == item.Cat_COD && obj.Subcat_COD == item.Subcat_COD) ? obj.col4 : 0 ) ; }, 0)
                               total_col6 = arrData.reduce(function (acc, obj) { return acc + ( (obj.Cat_COD == item.Cat_COD && obj.Subcat_COD == item.Subcat_COD) ? obj.col6 : 0 ) ; }, 0)
-                              
+
                               total_col5 = 0;
                               total_col7 = (+total_col1 - total_col3 - total_col5)
                               total_col7 = isNaN(total_col7) ? 0 : isFinite(total_col7) ? (total_col7) : 0;
@@ -372,7 +372,7 @@ function createExcelExportXLXS() {
                               dataArray.push({ cells })
                         } else {
 
-                              
+
                               cells = []
                               cells.push({ value: '', fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: '', fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
@@ -393,7 +393,7 @@ function createExcelExportXLXS() {
 
                   } else {
 
-                        if ( Subcat_DESC.trim() != item.Subcat_DESC.trim() ) { 
+                        if ( Subcat_DESC.trim() != item.Subcat_DESC.trim() ) {
                               Subcat_DESC = item.Subcat_DESC
 
                               total_col1 = arrData.reduce(function (acc, obj) { return acc + ((obj.Cat_COD == item.Cat_COD && obj.Subcat_COD == item.Subcat_COD)? obj.col1 : 0 ) ; }, 0)
@@ -401,7 +401,7 @@ function createExcelExportXLXS() {
                               total_col3 = arrData.reduce(function (acc, obj) { return acc + ((obj.Cat_COD == item.Cat_COD && obj.Subcat_COD == item.Subcat_COD)? obj.col3 : 0 ) ; }, 0)
                               total_col4 = arrData.reduce(function (acc, obj) { return acc + ((obj.Cat_COD == item.Cat_COD && obj.Subcat_COD == item.Subcat_COD)? obj.col4 : 0 ) ; }, 0)
                               total_col6 = arrData.reduce(function (acc, obj) { return acc + ((obj.Cat_COD == item.Cat_COD && obj.Subcat_COD == item.Subcat_COD)? obj.col6 : 0 ) ; }, 0)
-                              
+
                               total_col5 = 0;
                               total_col7 = (+total_col1 - total_col3 - total_col5)
                               total_col7 = isNaN(total_col7) ? 0 : isFinite(total_col7) ? (total_col7) : 0;
@@ -475,7 +475,7 @@ function createExcelExportXLXS() {
             total_col3 = arrData.reduce(function (acc, obj) { return acc + obj.col3 }, 0)
             total_col4 = arrData.reduce(function (acc, obj) { return acc + obj.col4 }, 0)
             total_col6 = arrData.reduce(function (acc, obj) { return acc + obj.col6 }, 0)
-            
+
             total_col5 = 0;
 
             total_col7 = (+total_col1 - total_col3 - total_col5)
@@ -504,7 +504,7 @@ function createExcelExportXLXS() {
 
             dataArray.push(addRowExcelnHeader(11))
 
-            
+
 
             var workbook = new kendo.ooxml.Workbook({
                   sheets: [
@@ -555,16 +555,16 @@ function sumaTransferenciaInterna(Cat_DESC, col){
       });
       // let total = 0;
       arrDataTransferencia.forEach((entry) => {
-            
+
             // try {
                   if( entry.Subcat_CONCEPTO.includes('INGRESOS') ) {
                         total += entry[col];
-                  } 
+                  }
                   else {
                         total -= entry[col];
-                  } 
+                  }
             // } catch (error) {
-            //       debugger   
+            //       debugger
             // }
       });
       return total;
@@ -605,12 +605,12 @@ function formatImport( value ) {
       if(value == undefined) {
             return 0
       } else {
-            return (value.toFixed() * 1)//.toLocaleString('en') 
+            return (value.toFixed() * 1)//.toLocaleString('en')
       }
 }
 
 function addRowExcel(cabeceras){
-      let cells = []    
+      let cells = []
       cabeceras.forEach((row) => {
             cells.push({ value: '',borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
       })
@@ -629,16 +629,17 @@ function addRowExcelnHeader(nHeader, value = '', colSpan = 1, fontSize = 10){
       for (let index = 0; index < nHeader; index++) {
             cells.push({ value, colSpan, fontSize, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
             value = ''
-            colSpan = 1            
+            colSpan = 1
       }
       return { cells }
 }
 function btnSearch() {
 
       $('.btnsearch').click( async function() {
-            
+
             var selectedDesde = $('#mesDesde').find('option:selected');
             var selectedHasta = $('#mesHasta').find('option:selected');
+            var selectedAno = $('#ano').find('option:selected');
 
             let mesDesdeId = selectedDesde.val() * 1
             let mesDesdeTexto = selectedDesde.text().substr(0,3)
@@ -646,18 +647,33 @@ function btnSearch() {
             let mesHastaId = selectedHasta.val() * 1
             let mesHastaTexto = selectedHasta.text().substr(0,3)
 
+            let anoId = selectedAno.val() * 1
+            let anoOldId = anoId - 1
             var selected = [];
-      
+
             for (let index = mesDesdeId; index <= mesHastaId; index++) {
                   selected.push( index );
             }
+            hpptoanualingresos.innerHTML = `PPTO-ANUAL-${anoId} INGRESOS`
+            hpptoanualegresos.innerHTML = `PPTO-ANUAL-${anoId} EGRESOS`
+            hsaldoingresos.innerHTML = `SALDO ${anoId} INGRESOS`
+            hsaldoegresos.innerHTML = `SALDO ${anoId} EGRESOS`
+            havanceingresos.innerHTML = `AVANCE ${anoId} (%) INGRESOS`
+            havanceegresos.innerHTML = `AVANCE ${anoId} (%) EGRESOS`
 
             hejecutadoingresos.innerHTML = `EJECUTADO ${mesDesdeTexto}-${mesHastaTexto} INGRESOS`
             hejecutadoegresos.innerHTML = `EJECUTADO ${mesDesdeTexto}-${mesHastaTexto} EGRESOS`
-            
+
             fejecutadoingresos.innerHTML = `EJECUTADO ${mesDesdeTexto}-${mesHastaTexto} INGRESOS`
             fejecutadoegresos.innerHTML = `EJECUTADO ${mesDesdeTexto}-${mesHastaTexto} EGRESOS`
-            
+
+            fpptoanualingresos.innerHTML = `PPTO-ANUAL-${anoId} INGRESOS`
+            fpptoanualegresos.innerHTML = `PPTO-ANUAL-${anoId} EGRESOS`
+            fsaldoingresos.innerHTML = `SALDO ${anoId} INGRESOS`
+            fsaldoegresos.innerHTML = `SALDO ${anoId} EGRESOS`
+            favanceingresos.innerHTML = `AVANCE ${anoId} (%) INGRESOS`
+            favanceegresos.innerHTML = `AVANCE ${anoId} (%) EGRESOS`
+
             console.log(selected.join(','))
             data = await getDataEjecucion(`${ano.value}¦${selected.join(',')}¦${cmbCategoria.value}`);
             showData(data)

@@ -24,7 +24,7 @@
         <!--JQuery-->
         <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 
-        
+
         <!-- <script type="text/javascript" src="{{ asset('js/jquery-1.9.1.min.js') }}"></script> -->
         <script type="text/javascript" src="{{ asset('js/kendo/kendo.all.js') }}"></script>
 
@@ -42,7 +42,7 @@
         <script type="text/javascript" src="{{ asset('js/datatables/jquery.dataTables.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/datatables/dataTables.bootstrap4.js') }}"></script>
 
-        
+
         <link href="{{ asset('css/fontawesome-free/all.css') }}" rel="stylesheet"></link>
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.7.0/dist/sweetalert2.min.js"></script>
@@ -56,7 +56,7 @@
                 background-color: #4650dd;border-color: #4650dd;color: white;
             }
             .btn-primary-app:focus,.btn-primary-app:hover{color:#fff;background-color:#3c44bc;border-color:#3840b1}
-        
+
             .loading {
                 position: absolute;
                 top: 50%;
@@ -140,7 +140,7 @@
         <header>
             <div class="navbar navbar-white bg-white shadow">
                 <div class="container">
-                    <a href="#" class="navbar-brand d-flex align-items-center">
+                    <a href="/precisam/public/re_finance" class="navbar-brand d-flex align-items-center">
                         <strong>Reportes</strong>
                     </a>
                 </div>
@@ -155,7 +155,7 @@
 
         <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
 
-        
+
     <div id="loading" class="loading" style="display:none">
         <div class="loading-bar"></div>
         <div class="loading-bar"></div>

@@ -24,7 +24,7 @@
 
 
 <div class="row text-center">
- 
+
   <div class="col-3"></div>
 
   <div class="col-lg-2 col-sm-12 col-md-2">
@@ -96,12 +96,12 @@
           <th class="text-center"></th>
           <th class="text-center"></th>
           <th class="text-center"></th>
-          <th class="text-center"> ENE-DIC EJEC-2020 </th>
-          <th class="text-center"> ENE-DIC PPTO-2021 </th>
+          <th class="text-center" id="henedicejec2020"> ENE-DIC EJEC-2020 </th>
+          <th class="text-center" id="henedicppto2021"> ENE-DIC PPTO-2021 </th>
           <th class="text-center" id="hejec2020meses"> ENE-JUN EJEC-2020 </th>
-          <th class="text-center"> Avance 2020 </th>
+          <th class="text-center" id="havance2020"> Avance 2020 </th>
           <th class="text-center" id="hejec2021meses"> ENE-JUN EJEC-2021 </th>
-          <th class="text-center"> Avance 2021 </th>
+          <th class="text-center" id="havance2021"> Avance 2021 </th>
           <th class="text-center" id="hvar2021montomeses">VAR-ENE-JUN-2020-2021 Monto</th>
           <th class="text-center" id="hvar2021pocentajemeses">VAR-ENE-JUN-2020-2021 %</th>
         </tr>
@@ -113,12 +113,12 @@
         <th class="text-center"></th>
           <th class="text-center"></th>
           <th class="text-center"></th>
-          <th class="text-center"> ENE-DIC EJEC-2020 </th>
-          <th class="text-center"> ENE-DIC PPTO-2021 </th>
+          <th class="text-center" id="fenedicejec2020"> ENE-DIC EJEC-2020 </th>
+          <th class="text-center" id="fenedicppto2021"> ENE-DIC PPTO-2021 </th>
           <th class="text-center" id="fejec2020meses"> ENE-JUN EJEC-2020 </th>
-          <th class="text-center"> Avance 2020 </th>
+          <th class="text-center" id="favance2020"> Avance 2020 </th>
           <th class="text-center" id="fejec2021meses"> ENE-JUN EJEC-2021 </th>
-          <th class="text-center"> Avance 2021 </th>
+          <th class="text-center" id="favance2021"> Avance 2021 </th>
           <th class="text-center" id="fvar2021montomeses">VAR-ENE-JUN-2020-2021 Monto</th>
           <th class="text-center" id="fvar2021pocentajemeses">VAR-ENE-JUN-2020-2021 %</th>
         </tr>
@@ -169,13 +169,13 @@
       </div>
       <div class="modal-footer">
 
-        
+
 
         <button type="button" class="btn btn-secondary" onclick="$('#exampleModal').modal('hide'); $('#msgError').hide();" data-dismiss="modal">Cerrar</button>
         <button type="button" class="btn btn-primary" id="btnDownload">Descargar</button>
       </div>
     </div>
   </div>
-</div>  
+</div>
 
 @endsection

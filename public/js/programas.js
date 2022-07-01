@@ -31,7 +31,7 @@ function getDataEjecucion(trama) {
 }
 
 function showData(data) {
-      
+
       $("#tbody").empty()
 
       let text = '';
@@ -48,10 +48,10 @@ function showData(data) {
 
       arrData = []
 
-      let arr     
+      let arr
 
       $.each(data.data_eje_2020, function (i, item) {
-            
+
             // EJECUCIÓN <=============
             // 2020 <=====
             // arryCommon = [];
@@ -126,7 +126,7 @@ function showData(data) {
                   col8 : col8,
                   col9 : col9
             })
-            
+
       });
 
       $('#dataTable').DataTable().clear();
@@ -134,7 +134,7 @@ function showData(data) {
       $("#tbody").append(text)
       tableData = $('#dataTable').DataTable({
             // order : [[0, 'desc']],
-            language : {                    
+            language : {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
                 "sZeroRecords": "No se encontraron resultados",
@@ -156,7 +156,7 @@ function showData(data) {
                 "oAria": {
                     "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                }                
+                }
             },
             "drawCallback": function( settings ) {
                   // configActionTable()
@@ -167,13 +167,13 @@ function showData(data) {
 function createExcelExportXLXS() {
 // arrData
       btnDownload.onclick = function () {
-            
+
             let cabeceras = `PROGRAMAS ACADÉMICOS¦EJECUCIÓN 2020¦PPTO ACTUAL 2021¦EJECUCIÓN 2021¦${hejec2020.innerHTML}¦Avance 2020¦${hejec2021.innerHTML}¦Avance 2021¦${hvarmontomeses.innerHTML}¦${hvarpocentajemeses.innerHTML}`.split("¦");
-            
-            let cells = []    
+
+            let cells = []
             let dataArray = []
             let index = 0;
-            
+
             dataArray.push(addRowExcelnHeader(11))
             dataArray.push(addRowExcelnHeader(11, 'REPORTE DE EJECUCIÓN PRESUPUESTAL 2021', 2, 11))
             // dataArray.push(addRowExcelnHeader(11, 'Al cierre de Junio preliminar 2021 / En S/. 000', 2, 9))
@@ -187,35 +187,35 @@ function createExcelExportXLXS() {
             }
             dataArray.push({ cells: cells })
 
-            cells = []  
+            cells = []
             cabeceras.forEach((row) => {
                   cells.push(
-                        { 
+                        {
                               value: row,
-                              colSpan: ( index == 0 ) ? 2 : 1, 
-                              background: "#1f4e78", 
-                              textAlign: "center", 
+                              colSpan: ( index == 0 ) ? 2 : 1,
+                              background: "#1f4e78",
+                              textAlign: "center",
                               verticalAlign: "center",
                               color: "#ffffff",
-                              fontSize: 10, 
-                              bold: true, 
-                              height: 300, 
+                              fontSize: 10,
+                              bold: true,
+                              height: 300,
                               wrap: true,
-                              borderBottom:  { color: "#000000", size: 1 } , 
-                              borderLeft: { color: "#000000", size: 1 }, 
-                              borderTop: { color: "#000000", size: 1 }, 
+                              borderBottom:  { color: "#000000", size: 1 } ,
+                              borderLeft: { color: "#000000", size: 1 },
+                              borderTop: { color: "#000000", size: 1 },
                               borderRight: { color: "#000000", size: 1 }
                         })
                   index++;
             })
             dataArray.push({ cells: cells })
-            
+
             cells = []
             for (let index = 0; index < 5; index++) {
                   cells.push({ value: '',borderBottom: { color: "#fff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#000", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
             }
             dataArray.push({ cells: cells })
-            
+
             let area = ''
             let TipoActividad = ''
             let total_col1 = 0;
@@ -227,7 +227,7 @@ function createExcelExportXLXS() {
             let total_col7 = 0;
             let total_col8 = 0;
             let total_col9 = 0;
-            cells = [] 
+            cells = []
             $.each(arrData, function (i, item) {
 
                   if ( area.trim() != item.area.trim() ) {
@@ -238,7 +238,7 @@ function createExcelExportXLXS() {
                         total_col3 = arrData.reduce(function (acc, obj) { return acc + (obj.area == item.area ? obj.col3 : 0 ) ; }, 0)
                         total_col4 = arrData.reduce(function (acc, obj) { return acc + (obj.area == item.area ? obj.col4 : 0 ) ; }, 0)
                         total_col6 = arrData.reduce(function (acc, obj) { return acc + (obj.area == item.area ? obj.col6 : 0 ) ; }, 0)
-                        
+
                         total_col5 = (+total_col4 / total_col1)
                         total_col5 = isNaN(total_col5) ? 0 : isFinite(total_col5) ? (total_col5) : 0;
                         total_col7 = (+total_col6 / total_col2)
@@ -262,7 +262,7 @@ function createExcelExportXLXS() {
                         cells.push({ value: ((formatImport(total_col9) * 1)/100), type:"number", format: "0%", fontSize: 10, background: "#D3E8FF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                         dataArray.push({ cells })
 
-                        if ( TipoActividad.trim() != item.TipoActividad.trim() ) { 
+                        if ( TipoActividad.trim() != item.TipoActividad.trim() ) {
                               TipoActividad = item.TipoActividad
 
                               total_col1 = arrData.reduce(function (acc, obj) { return acc + (obj.area == item.area && obj.TipoActividad == item.TipoActividad? obj.col1 : 0 ) ; }, 0)
@@ -270,7 +270,7 @@ function createExcelExportXLXS() {
                               total_col3 = arrData.reduce(function (acc, obj) { return acc + (obj.area == item.area && obj.TipoActividad == item.TipoActividad? obj.col3 : 0 ) ; }, 0)
                               total_col4 = arrData.reduce(function (acc, obj) { return acc + (obj.area == item.area && obj.TipoActividad == item.TipoActividad? obj.col4 : 0 ) ; }, 0)
                               total_col6 = arrData.reduce(function (acc, obj) { return acc + (obj.area == item.area && obj.TipoActividad == item.TipoActividad? obj.col6 : 0 ) ; }, 0)
-                              
+
                               total_col5 = (+total_col4 / total_col1)
                               total_col5 = isNaN(total_col5) ? 0 : isFinite(total_col5) ? (total_col5) : 0;
                               total_col7 = (+total_col6 / total_col2)
@@ -326,7 +326,7 @@ function createExcelExportXLXS() {
 
                   } else {
 
-                        if ( TipoActividad.trim() != item.TipoActividad.trim() ) { 
+                        if ( TipoActividad.trim() != item.TipoActividad.trim() ) {
                               TipoActividad = item.TipoActividad
 
                               total_col1 = arrData.reduce(function (acc, obj) { return acc + (obj.area == item.area && obj.TipoActividad == item.TipoActividad? obj.col1 : 0 ) ; }, 0)
@@ -334,7 +334,7 @@ function createExcelExportXLXS() {
                               total_col3 = arrData.reduce(function (acc, obj) { return acc + (obj.area == item.area && obj.TipoActividad == item.TipoActividad? obj.col3 : 0 ) ; }, 0)
                               total_col4 = arrData.reduce(function (acc, obj) { return acc + (obj.area == item.area && obj.TipoActividad == item.TipoActividad? obj.col4 : 0 ) ; }, 0)
                               total_col6 = arrData.reduce(function (acc, obj) { return acc + (obj.area == item.area && obj.TipoActividad == item.TipoActividad? obj.col6 : 0 ) ; }, 0)
-                              
+
                               total_col5 = (+total_col4 / total_col1)
                               total_col5 = isNaN(total_col5) ? 0 : isFinite(total_col5) ? (total_col5) : 0;
                               total_col7 = (+total_col6 / total_col2)
@@ -395,7 +395,7 @@ function createExcelExportXLXS() {
 
             dataArray.push(addRowExcelnHeader(5))
 
-            
+
 
             var workbook = new kendo.ooxml.Workbook({
                   sheets: [
@@ -436,16 +436,16 @@ function sumaTransferenciaInterna(Cat_DESC, col){
       });
       // let total = 0;
       arrDataTransferencia.forEach((entry) => {
-            
+
             // try {
                   if( entry.Subcat_CONCEPTO.includes('INGRESOS') ) {
                         total += entry[col];
-                  } 
+                  }
                   else {
                         total -= entry[col];
-                  } 
+                  }
             // } catch (error) {
-            //       debugger   
+            //       debugger
             // }
       });
       return total;
@@ -486,12 +486,12 @@ function formatImport( value ) {
       if(value == undefined) {
             return 0
       } else {
-            return (value.toFixed() * 1)//.toLocaleString('en') 
+            return (value.toFixed() * 1)//.toLocaleString('en')
       }
 }
 
 function addRowExcel(cabeceras){
-      let cells = []    
+      let cells = []
       cabeceras.forEach((row) => {
             cells.push({ value: '',borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
       })
@@ -510,16 +510,17 @@ function addRowExcelnHeader(nHeader, value = '', colSpan = 1, fontSize = 10){
       for (let index = 0; index < nHeader; index++) {
             cells.push({ value, colSpan, fontSize, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
             value = ''
-            colSpan = 1            
+            colSpan = 1
       }
       return { cells }
 }
 function btnSearch() {
 
       $('.btnsearch').click( async function() {
-            
+
             var selectedDesde = $('#mesDesde').find('option:selected');
             var selectedHasta = $('#mesHasta').find('option:selected');
+            var selectedAno = $('#ano').find('option:selected');
 
             let mesDesdeId = selectedDesde.val() * 1
             let mesDesdeTexto = selectedDesde.text().substr(0,3)
@@ -527,22 +528,37 @@ function btnSearch() {
             let mesHastaId = selectedHasta.val() * 1
             let mesHastaTexto = selectedHasta.text().substr(0,3)
 
+            let anoId = selectedAno.val() * 1
+            let anoOldId = anoId - 1
             var selected = [];
-      
+
             for (let index = mesDesdeId; index <= mesHastaId; index++) {
                   selected.push( index );
             }
 
-            hejec2020.innerHTML = `EJEC-2020 ${mesDesdeTexto}-${mesHastaTexto}`
-            hejec2021.innerHTML = `EJEC-2021 ${mesDesdeTexto}-${mesHastaTexto}`
-            hvarmontomeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-2020-2021 Monto`
-            hvarpocentajemeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-2020-2021 %`
-            
-            fejec2020.innerHTML = `EJEC-2020 ${mesDesdeTexto}-${mesHastaTexto}`
-            fejec2021.innerHTML = `EJEC-2021 ${mesDesdeTexto}-${mesHastaTexto}`
-            fvarmontomeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-2020-2021 Monto`
-            fvarpocentajemeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-2020-2021 %`
-            
+            hejec2020g.innerHTML = `EJECUCIÓN ${anoOldId}`
+            hpptoactual2021.innerHTML = `PPTO-ACTUAL ${anoId}`
+            hejec2021g.innerHTML = `EJECUCIÓN ${anoId}`
+            havance2020.innerHTML = `AVANCE ${anoOldId}`
+            havance2021.innerHTML = `AVANCE ${anoId}`
+
+
+            hejec2020.innerHTML = `EJEC-${anoOldId} ${mesDesdeTexto}-${mesHastaTexto}`
+            hejec2021.innerHTML = `EJEC-${anoId} ${mesDesdeTexto}-${mesHastaTexto}`
+            hvarmontomeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-${anoOldId}-${anoId} Monto`
+            hvarpocentajemeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-${anoOldId}-${anoId} %`
+
+            fejec2020.innerHTML = `EJEC-${anoOldId} ${mesDesdeTexto}-${mesHastaTexto}`
+            fejec2021.innerHTML = `EJEC-${anoId} ${mesDesdeTexto}-${mesHastaTexto}`
+            fvarmontomeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-${anoOldId}-${anoId} Monto`
+            fvarpocentajemeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-${anoOldId}-${anoId} %`
+
+            fejec2020g.innerHTML = `EJECUCIÓN ${anoOldId}`
+            fpptoactual2021.innerHTML = `PPTO-ACTUAL ${anoId}`
+            fejec2021g.innerHTML = `EJECUCIÓN ${anoId}`
+            favance2020.innerHTML = `AVANCE ${anoOldId}`
+            favance2021.innerHTML = `AVANCE ${anoId}`
+
             console.log(selected.join(','))
             data = await getDataEjecucion(`${ano.value}¦${selected.join(',')}`);
             showData(data)

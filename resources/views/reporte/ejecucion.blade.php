@@ -23,7 +23,7 @@
 </div>
 
 <div class="row text-center">
- 
+
   <div class="col-3"></div>
 
   <div class="col-lg-2 col-sm-12 col-md-2">
@@ -97,18 +97,18 @@
           <th class="text-center">CONCEPTO</th>
           <th class="text-center">FAMILIA DE PARTIDA</th>
           <th class="text-center">DETALLE</th>
-          <th class="text-center">EJEC-2020 ENE-DIC</th>
-          <th class="text-center">PPTO-2021 ENE-DIC</th>
+          <th class="text-center" id="hejec2020enedic">EJEC-2020 ENE-DIC</th>
+          <th class="text-center" id="hppto2021enedic">PPTO-2021 ENE-DIC</th>
           <th class="text-center" id="hejec2020meses">EJEC-2020 ENE-JUN</th>
-          <th class="text-center">AVANCE 2020</th>
+          <th class="text-center" id="havance2020">AVANCE 2020</th>
           <th class="text-center" id="hejec2021meses">EJEC-2021 ENE-JUN</th>
-          <th class="text-center">Avance-EJEC 2021</th>
-          <th class="text-center">COMPROMISOS* 2021</th>
-          <th class="text-center">EJEC+COMP 2021</th>
+          <th class="text-center" id="havanceejec2021">Avance-EJEC 2021</th>
+          <th class="text-center" id="hcompromisos2021">COMPROMISOS* 2021</th>
+          <th class="text-center" id="hejeccomp2021">EJEC+COMP 2021</th>
           <th class="text-center" id="hvar2021montomeses">VAR-ENE-JUN-2020-2021 Monto</th>
           <th class="text-center" id="hvar2021pocentajemeses">VAR-ENE-JUN-2020-2021 %</th>
-          <th class="text-center">SALDO-2021 Monto</th>
-          <th class="text-center">SALDO-2021 %</th>
+          <th class="text-center" id="hsaldo2021monto">SALDO-2021 Monto</th>
+          <th class="text-center" id="hsaldo2021">SALDO-2021 %</th>
 
 
         </tr>
@@ -121,18 +121,18 @@
           <th class="text-center">CONCEPTO</th>
           <th class="text-center">FAMILIA DE PARTIDA</th>
           <th class="text-center">DETALLE</th>
-          <th class="text-center">EJEC2020 ENEDIC</th>
-          <th class="text-center">PPTO2021 ENEDIC</th>
+          <th class="text-center" id="fejec2020enedic">EJEC2020 ENEDIC</th>
+          <th class="text-center" id="fppto2021enedic">PPTO2021 ENEDIC</th>
           <th class="text-center" id="fejec2020meses">EJEC-2020 ENE-JUN</th>
-          <th class="text-center">AVANCE 2020</th>
+          <th class="text-center" id="favance2020">>AVANCE 2020</th>
           <th class="text-center" id="fejec2021meses">EJEC-2021 ENE-JUN</th>
-          <th class="text-center">Avance-EJEC 2021</th>
-          <th class="text-center">COMPROMISOS* 2021</th>
-          <th class="text-center">EJEC+COMP 2021</th>
+          <th class="text-center" id="favanceejec2021">Avance-EJEC 2021</th>
+          <th class="text-center" id="fcompromisos2021">COMPROMISOS* 2021</th>
+          <th class="text-center" id="fejeccomp2021">EJEC+COMP 2021</th>
           <th class="text-center" id="fvar2021montomeses">VAR-ENE-JUN-2020-2021 Monto</th>
           <th class="text-center" id="fvar2021pocentajemeses">VAR-ENE-JUN-2020-2021 %</th>
-          <th class="text-center">SALDO-2021 Monto</th>
-          <th class="text-center">SALDO-2021 %</th>
+          <th class="text-center" id="fsaldo2021monto">SALDO-2021 Monto</th>
+          <th class="text-center" id="fsaldo2021">SALDO-2021 %</th>
         </tr>
       </tfoot>
     </table>

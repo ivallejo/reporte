@@ -26,7 +26,7 @@ class ReporteController extends Controller
         $file_number = $data_explode[0];
         $file_year = $data_explode[1];
 
-        // dd($data_explode[0]);
+        // dd($file_number,$file_year);
         // dd($data_explode[1]);
         // dd($data_explode[2]);
 
@@ -41,10 +41,12 @@ class ReporteController extends Controller
             $colums = explode('¦', $row);
             if ( trim($colums[0]) != '' && trim($colums[0]) != 'Total') {
 
+
+
                 if ( is_numeric(trim($colums[49])) && is_numeric(trim($colums[50])) ) {
-                    
+
                     $codCategoria = $colums[15].'.'.$colums[17].'.'.$colums[19].'.'.$colums[21];
-                
+
                     $direccion = "";
                     if( $colums[4] == '1' && substr($colums[17],0,2) == "OR" ){
                         $direccion = "REMUNERACIONES FIJAS";
@@ -56,7 +58,7 @@ class ReporteController extends Controller
                             if( $res ) $direccion = $res->Direccion;
                         }
                     }
-                    
+
                     $area = "";
                     if( $colums[4] == '1' && substr($colums[17],0,2) == "OR" ){
                         $area = "REMUNERACIONES FIJAS";
@@ -66,13 +68,13 @@ class ReporteController extends Controller
                         } else {
                             if ( $colums[8] == '9802' ) {
                                 $area = "RECUPERACIÓN DE CUENTAS POR COBRAR";
-                            } else {                        
+                            } else {
                                 $res = ReporteCategorizacion::select('Area')->where('Chartfield', $codCategoria)->first();
                                 if( $res ) $area = $res->Area;
                             }
                         }
                     }
-                    
+
                     $tipoactividad = "";
                     if( $colums[4] == '1' && substr($colums[17],0,2) == "OR" ){
                         $tipoactividad = "REMUNERACIONES FIJAS";
@@ -82,7 +84,7 @@ class ReporteController extends Controller
                         } else {
                             if ( $colums[8] == '9802' ) {
                                 $tipoactividad = "RECUPERACIÓN DE CUENTAS POR COBRAR";
-                            } else {                        
+                            } else {
                                 $res = ReporteCategorizacion::select('TipoActividad')->where('Chartfield', $codCategoria)->first();
                                 if( $res ) $tipoactividad = $res->TipoActividad;
                             }
@@ -92,18 +94,18 @@ class ReporteController extends Controller
                     $categoria = "";
                     $res = ReporteCategorizacion::select('Categoria')->where('Chartfield', $codCategoria)->first();
                     if( $res ) $categoria = $res->Categoria;
-                    
+
                     $criterio = $direccion.'.'.$area.'.'.$tipoactividad;
-                    $flujo = ($colums[4] == '9') ? "Ingresos": "Egresos";  
-                    
+                    $flujo = ($colums[4] == '9') ? "Ingresos": "Egresos";
+
                     $importeS = "";
                     if ( str_contains(trim($colums[0]), 'PPTO') )  $importeS = ($direccion == "NO CONSIDERAR") ? "0" : (($colums[0] == "ING_PPTO") ? $colums[49] : ( ((float)$colums[49]) * -1 ));
                     else $importeS = ($direccion == "NO CONSIDERAR") ? "0" : (($colums[0] == "ING_PORCOB") ? $colums[49] : ( ((float)$colums[49]) * -1 ));
-                    
+
                     $ImporteUSD = ($criterio == "") ? "0" : (($colums[0] == "ING_PORCOB") ? $colums[50] : ( ((float)$colums[50]) * -1 ));
-                    
-                    
-                    $reporte = array( 
+
+
+                    $reporte = array(
                         'Ledger' =>                 trim($colums[0]),
                         'Presupuesto' =>            trim($colums[1]),
                         'Periodo_Presupuestal' =>   trim($colums[2]),
@@ -168,6 +170,15 @@ class ReporteController extends Controller
                         'Numero_archivo' =>         $file_number,
                     );
 
+                    $importe_1 = $reporte['ImporteS'];
+                    if (str_contains(strtoupper($importe_1), 'E')) {
+                        $reporte['ImporteS'] = substr($importe_1,0,strrpos(strtoupper($importe_1),'E'));
+                    }
+                    $importe_2 = $reporte['ImporteUSD'];
+                    if (str_contains(strtoupper($importe_2), 'E')) {
+                        $reporte['ImporteUSD'] = substr($importe_2,0,strrpos(strtoupper($importe_2),'E'));
+                    }
+
                     // $exist = Reporte::where('Ledger', '=', $reporte['Ledger'])
                     //         ->where('Periodo_Presupuestal', '=', $reporte['Periodo_Presupuestal'])
                     //         ->where('Mes_Contable_mesN', '=', $reporte['Mes_Contable_mesN'])
@@ -196,8 +207,9 @@ class ReporteController extends Controller
                 }
             }
         }
-
-        return response()->json(['success' => (count($data_response) == 0 ? true : false), 'data' => $data_response ], 201);
+        // $file_number = $data_explode[0];
+        // $file_year = $data_explode[1];
+        return response()->json(['success' => (count($data_response) == 0 ? true : false), 'data' => $data_response, 'file_number' => $file_number, 'file_year' => $file_year ], 201);
     }
 
     public function update(Request $request){
@@ -209,10 +221,10 @@ class ReporteController extends Controller
         $colums = [];
         $data_response = [];
         foreach($rows as $row){
-            $colums = explode('¦', $row);   
+            $colums = explode('¦', $row);
             if ( trim($colums[0]) != '') {
 
-                $reporte = array( 
+                $reporte = array(
                     'Ledger' =>                 $colums[0],
                     'Presupuesto' =>            $colums[1],
                     'Periodo_Presupuestal' =>   $colums[2],
@@ -276,7 +288,7 @@ class ReporteController extends Controller
                 );
                 // dd($reporte);
                 // Reporte::create($reporte);
-                
+
                 Reporte::where('id', $colums[60])
                 ->update($reporte);
             }
@@ -286,7 +298,7 @@ class ReporteController extends Controller
                 array_push($data_response,$reporte);
             }
 
-                
+
         }
 
         // dd($data_response);
@@ -303,7 +315,7 @@ class ReporteController extends Controller
         $req = $request->all();
         $row = $req['trama'];
         $colums = explode('¦', $row);
-        
+
         $anoold = intval($colums[0]) -1;
         // dd($colums[0]);
 
@@ -319,13 +331,13 @@ class ReporteController extends Controller
 
         return response()->json([
             'data_ejec_2020' => $data_ejec_2020,
-            'data_ejec_2020_ej' => $data_ejec_2020_ej, 
-            'data_ejec_2021' => $data_ejec_2021, 
+            'data_ejec_2020_ej' => $data_ejec_2020_ej,
+            'data_ejec_2021' => $data_ejec_2021,
             'data_ejec_2021_ej' => $data_ejec_2021_ej,
-            'data_ppto_2020' => $data_ppto_2020, 
+            'data_ppto_2020' => $data_ppto_2020,
             'data_ppto_2021' => $data_ppto_2021,
-            'data_com_2020'  => $data_com_2020, 
-            'data_com_2021'  => $data_com_2021, 
+            'data_com_2020'  => $data_com_2020,
+            'data_com_2021'  => $data_com_2021,
             // 'data_agrupador'  => $reporte_agrupador
         ], 201);
     }
@@ -349,8 +361,8 @@ class ReporteController extends Controller
 
         return response()->json([
             'data_ejec_2020' => $data_ejec_2020,
-            'data_ppto_2021' => $data_ppto_2021, 
-            'data_ejec_2020_ej' => $data_ejec_2020_ej, 
+            'data_ppto_2021' => $data_ppto_2021,
+            'data_ejec_2020_ej' => $data_ejec_2020_ej,
             'data_ejec_2021_ej' => $data_ejec_2021_ej
         ], 201);
     }
@@ -375,10 +387,10 @@ class ReporteController extends Controller
 
         return response()->json([
             // 'data_base' => $data_base,
-            'data_ppto_egresos' => $data_ppto_egresos, 
-            'data_ppto_ingresos' => $data_ppto_ingresos, 
-            'data_ejec_ingresos' => $data_ejec_ingresos, 
-            'data_ejec_egresos' => $data_ejec_egresos, 
+            'data_ppto_egresos' => $data_ppto_egresos,
+            'data_ppto_ingresos' => $data_ppto_ingresos,
+            'data_ejec_ingresos' => $data_ejec_ingresos,
+            'data_ejec_egresos' => $data_ejec_egresos,
             'data_com_egresos' => $data_com_egresos
         ], 201);
     }
@@ -397,11 +409,13 @@ class ReporteController extends Controller
         // $data_base = DB::select("EXEC usp_reporte_3_base '2020'");
         $data_eje_2020_ej = DB::select("EXEC usp_reporte_4_ejec_ej '".$anoold."','".$colums[1]."','1'");
         $data_eje_2021_ej = DB::select("EXEC usp_reporte_4_ejec_ej '".$colums[0]."','".$colums[1]."','1'");
+        $data_ppto_2021_ej = DB::select("EXEC usp_reporte_4_ppto '".$colums[0]."','".$colums[1]."','1'");
 
         return response()->json([
             // 'data_base' => $data_base,
-            'data_eje_2020_ej' => $data_eje_2020_ej, 
-            'data_eje_2021_ej' => $data_eje_2021_ej
+            'data_eje_2020_ej' => $data_eje_2020_ej,
+            'data_eje_2021_ej' => $data_eje_2021_ej,
+            'data_ppto_2021_ej' => $data_ppto_2021_ej
         ], 201);
     }
 
@@ -411,7 +425,7 @@ class ReporteController extends Controller
     }
 
     public function programas_data(Request $request)
-    {   
+    {
         $req = $request->all();
         $row = $req['trama'];
         $colums = explode('¦', $row);
@@ -425,10 +439,10 @@ class ReporteController extends Controller
 
         return response()->json([
             // 'data_base' => $data_base,
-            'data_eje_2020' => $data_eje_2020, 
-            'data_ppto_2021' => $data_ppto_2021, 
-            'data_eje_2021' => $data_eje_2021, 
-            'data_eje_2020_ej' => $data_eje_2020_ej, 
+            'data_eje_2020' => $data_eje_2020,
+            'data_ppto_2021' => $data_ppto_2021,
+            'data_eje_2021' => $data_eje_2021,
+            'data_eje_2020_ej' => $data_eje_2020_ej,
             'data_eje_2021_ej' => $data_eje_2021_ej
         ], 201);
     }
@@ -439,7 +453,7 @@ class ReporteController extends Controller
     }
 
     public function internacionalizacion_data(Request $request)
-    {   
+    {
         $req = $request->all();
         $row = $req['trama'];
         $colums = explode('¦', $row);
@@ -453,10 +467,10 @@ class ReporteController extends Controller
 
         return response()->json([
             // 'data_base' => $data_base,
-            'data_ppto_2021_ing' => $data_ppto_2021_ing, 
-            'data_ppto_2021_egr' => $data_ppto_2021_egr, 
-            'data_eje_2021_ing' => $data_eje_2021_ing, 
-            'data_eje_2021_egr' => $data_eje_2021_egr, 
+            'data_ppto_2021_ing' => $data_ppto_2021_ing,
+            'data_ppto_2021_egr' => $data_ppto_2021_egr,
+            'data_eje_2021_ing' => $data_eje_2021_ing,
+            'data_eje_2021_egr' => $data_eje_2021_egr,
             'data_com_2021' => $data_com_2021
         ], 201);
     }

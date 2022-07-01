@@ -156,7 +156,14 @@
       </tfoot>
     </table>
   </div>
-  <div class="mb-3"><button id="add" class="btn btn-primary btn-primary-app"><i class="fas fa-cloud-upload-alt"></i> Corregir</button></div>
+    <div class="mb-3">
+        <button id="add" class="btn btn-primary btn-primary-app">
+          <i class="fas fa-cloud-upload-alt"></i> Corregir
+        </button>
+        <button id="omitir" class="btn btn-warning btn-warning-app mx-2">
+            <i class="fas fa-arrow-right"></i> Omitir
+          </button>
+    </div>
 </div>
 
 <!-- Modal -->
@@ -170,14 +177,14 @@
         <input type="hidden" id="hddColumn">
         <input type="hidden" id="hddRow">
         <h4 class="modal-title" style="font-weight: bold;" id="exampleModalTitle">Edición</h5>
-        
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#exampleModal').modal('hide');">
             <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form>
-            <label class="coment-text" id="exampleModalLabel"></label> 
+            <label class="coment-text" id="exampleModalLabel"></label>
             <br>
           <div class="form-group">
             <label for="txtValue" id="lblValue" class="col-form-label"></label>

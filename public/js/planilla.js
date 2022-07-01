@@ -32,7 +32,7 @@ function getDataEjecucion(trama) {
 }
 
 function showData(data) {
-      
+
       $("#tbody").empty()
       let text = '';
       let arryCommon = [];
@@ -60,13 +60,13 @@ function showData(data) {
                   arryCommon = [];
                   arryCommon = data.data_ejec_2020_ej.filter( x => x.Subcat_CONCEPTO == item.Subcat_CONCEPTO && x.Subcat_DESC == item.Subcat_DESC)
                   if( arryCommon.length > 0) col3 = (arryCommon[0].Total*1)
-                  else col3 = 0  
+                  else col3 = 0
                   // 2021
                   col5 = (item.Total*1)
                   // arryCommon = [];
                   // arryCommon = data.data_ejec_2021_ej.filter( x => x.Subcat_CONCEPTO == item.Subcat_CONCEPTO && x.Subcat_DESC == item.Subcat_DESC)
                   // if( arryCommon.length > 0) col5 = (arryCommon[0].Total*1)
-                  // else col5 = 0  
+                  // else col5 = 0
 
                   // PPTO <=============
                   //2021 1/12  <=====
@@ -91,7 +91,7 @@ function showData(data) {
                   // PORCENTAJE
                   col8 = (col5/col3)
                   col8 = isNaN(col8) ? 0 : isFinite(col8) ? ((col8-1)*100) : 0;
-                  
+
                   // TABLA
                   text += `<tr>\
                               <td class="text-center" style="padding-right:30px"> ${ item.Cat_DESC } </td>\
@@ -131,7 +131,7 @@ function showData(data) {
       $("#tbody").append(text)
       tableData = $('#dataTable').DataTable({
             // order : [[0, 'desc']],
-            language : {                    
+            language : {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
                 "sZeroRecords": "No se encontraron resultados",
@@ -153,7 +153,7 @@ function showData(data) {
                 "oAria": {
                     "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                }                
+                }
             },
             "drawCallback": function( settings ) {
                   // configActionTable()
@@ -171,7 +171,7 @@ function preCreateExcelExportXLXS() {
 function createExcelExportXLXS() {
 // arrData
       btnDownload.onclick = function () {
-            
+
             if( $("#HC1").val() == "" || $("#HC1").val() == "0" || $("#HC2").val() == "" || $("#HC2").val() == "0" || $("#HC3").val() == "" || $("#HC3").val() == "0" || $("#HC4").val() == "" || $("#HC4").val() == "0"){
                   $('#msgError').show()
                   return;
@@ -180,45 +180,45 @@ function createExcelExportXLXS() {
             $("#msgError").hide()
             $('#exampleModal').modal('hide')
             let cabeceras = `¦¦¦ENEDIC EJEC2020¦ENEDIC PPTO2021¦${hejec2020meses.innerHTML}¦AVANCE 2020¦${hejec2021meses.innerHTML}¦AVANCE EJEC 2021¦${hvar2021montomeses.innerHTML}¦${hvar2021pocentajemeses.innerHTML}`.split("¦");
-            let cells = []    
+            let cells = []
             let dataArray = []
             let index = 0;
-            
+
             dataArray.push(addRowExcelnHeader(12))
             dataArray.push(addRowExcelnHeader(12, 'REPORTE DE EJECUCIÓN PRESUPUESTAL 2021', 2, 11))
             // dataArray.push(addRowExcelnHeader(12, 'Al cierre de Junio preliminar 2021 / En S/. 000', 2, 9))
             dataArray.push(addRowExcelnHeader(12, '', 2, 9))
 
-            // cells = [] 
+            // cells = []
             // cells.push({ value: 'REPORTE DE EJECUCIÓN PRESUPUESTAL 2021', colSpan: 2, fontSize: 11, bold: true, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
             // dataArray.push({ cells: cells })
-            
-            // cells = [] 
+
+            // cells = []
             // cells.push({ value: 'Al cierre de Junio preliminar 2021 / En S/. 000', colSpan: 2, fontSize: 9, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
             // dataArray.push({ cells: cells })
             // dataArray.push(addRowExcelnHeader(12))
 
-            cells = []  
+            cells = []
             cabeceras.forEach((row) => {
                   cells.push(
-                        { 
-                              value: row, 
+                        {
+                              value: row,
                               width: (index <= 3 ) ? 280 : 150,
-                              background: (index >= 3 ) ? "#1f4e78" : "#ffffff", 
-                              textAlign: "center", 
-                              color: "#ffffff", //(index <= 2 ) ? "#ffffff" : "#000000", 
-                              fontSize: 10, 
-                              bold: true, 
-                              height: 180, 
-                              borderBottom:  { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 } , 
-                              borderLeft: { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 }, 
-                              borderTop: { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 }, 
+                              background: (index >= 3 ) ? "#1f4e78" : "#ffffff",
+                              textAlign: "center",
+                              color: "#ffffff", //(index <= 2 ) ? "#ffffff" : "#000000",
+                              fontSize: 10,
+                              bold: true,
+                              height: 180,
+                              borderBottom:  { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 } ,
+                              borderLeft: { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 },
+                              borderTop: { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 },
                               borderRight: { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 }
                         })
                   index++;
             })
             dataArray.push({ cells: cells })
-                
+
             let Subcat_CONCEPTO = ''
 
             let total_col1 = 0;
@@ -229,7 +229,7 @@ function createExcelExportXLXS() {
             let total_col6 = 0;
             let total_col7 = 0;
             let total_col8 = 0;
-            
+
             // arrData.sort( compareAgrupador );
             // arrData.sort( compare );
             let arrTotales = []
@@ -237,27 +237,27 @@ function createExcelExportXLXS() {
             $.each(arrData , function (i, item) {
                   if (nextCuadro) return
                   if ( item.Cat_DESC.trim() == "REMUNERACIONES FIJAS" ) {
-                        cells = [] 
+                        cells = []
                         if ( Subcat_CONCEPTO != item.Subcat_CONCEPTO ) {
                               if ( i!= 0) {
                                     total_col1 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col1 : 0 ) ; }, 0)
                                     total_col2 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col2 : 0 ) ; }, 0)
                                     total_col3 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col3 : 0 ) ; }, 0)
-                                    
+
                                     total_col4 = total_col3 / total_col1
                                     total_col4 = isNaN(total_col4) ? 0 : (total_col4*100)
-            
+
                                     total_col5 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col5 : 0 ) ; }, 0)
-            
+
                                     total_col6 = total_col5 / total_col2
                                     total_col6 = isNaN(total_col6) ? 0 : (total_col6*100)
-            
+
                                     total_col7 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col7 : 0 ) ; }, 0)
-            
+
                                     // PORCENTAJE
                                     total_col8 = (total_col5/total_col3)
                                     total_col8 = isNaN(total_col8) ? 0 : isFinite(total_col8) ? ((total_col8-1)*100) : 0;
-                                    
+
                                     // Totales
                                     arrTotales.push({
                                           col1 : total_col1,
@@ -269,8 +269,8 @@ function createExcelExportXLXS() {
                                           col7 : total_col7,
                                           col8 : total_col8
                                     })
-            
-            
+
+
                                     cells = []
                                     cells.push({ value: 'TOTAL ' + Subcat_CONCEPTO, fontSize: 10, background: "#D3E8FF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                                     cells.push({ value: '', fontSize: 10, background: "#D3E8FF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
@@ -285,10 +285,10 @@ function createExcelExportXLXS() {
                                     cells.push({ value: (formatImport(total_col8) * 1) / 100, type:"number", format: "0%", fontSize: 10, background: "#D3E8FF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                                     dataArray.push({ cells: cells })
                                     dataArray.push(addRowExcel(cabeceras))
-                                    
+
                               } else {
                                     dataArray.push(addRowExcel(cabeceras))
-                                    // 
+                                    //
                                     cells = []
                                     cells.push({ value: 'REMUNERACIONES FIJAS' + Subcat_CONCEPTO, fontSize: 10, background: "#D3E8FF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                                     cells.push({ value: '', fontSize: 10, background: "#D3E8FF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
@@ -302,22 +302,22 @@ function createExcelExportXLXS() {
                                     cells.push({ value: 0, type:"number", format: "#,##0", fontSize: 10, background: "#D3E8FF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                                     cells.push({ value: 0, type:"number", format: "0%", fontSize: 10, background: "#D3E8FF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                                     dataArray.push({ cells: cells })
-                                    // 
+                                    //
                                     dataArray.push(addRowExcel(cabeceras))
                               }
-                              
-                              
+
+
                               Subcat_CONCEPTO = item.Subcat_CONCEPTO
-                              
+
                               if ( item.Cat_DESC.trim() == 'PRACTICANTES') return;
-      
+
                               cells = []
                               cells.push({ value: item.Campo1, fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: item.Campo2, fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: item.Subcat_DESC, fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: formatImport(item.col1) * 1, type:"number", format: "#,##0", fontSize: 10, background: "#ffffff", textAlign: "right", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: formatImport(item.col2) * 1, type:"number", format: "#,##0", fontSize: 10, background: "#ffffff", textAlign: "right", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
-                              
+
                               cells.push({ value: formatImport(item.col3) * 1, type:"number", format: "#,##0", fontSize: 10, background: "#ffffff", textAlign: "right", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: (formatImport(item.col4) * 1) / 100, type:"number", format: "0%", fontSize: 10, background: "#ffffff", textAlign: "right", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: formatImport(item.col5) * 1, type:"number", format: "#,##0", fontSize: 10, background: "#ffffff", textAlign: "right", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
@@ -326,7 +326,7 @@ function createExcelExportXLXS() {
                               cells.push({ value: (formatImport(item.col8) * 1) / 100, type:"number", format: "0%", fontSize: 10, background: "#ffffff", textAlign: "right", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               dataArray.push({ cells: cells })
                         } else {
-      
+
                               cells.push({ value: item.Campo1, fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: item.Campo2, fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: item.Subcat_DESC, fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
@@ -345,7 +345,7 @@ function createExcelExportXLXS() {
                         total_col1 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col1 : 0 ) ; }, 0)
                         total_col2 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col2 : 0 ) ; }, 0)
                         total_col3 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col3 : 0 ) ; }, 0)
-                        
+
                         total_col4 = total_col3 / total_col1
                         total_col4 = isNaN(total_col4) ? 0 : (total_col4*100)
 
@@ -359,7 +359,7 @@ function createExcelExportXLXS() {
                         // PORCENTAJE
                         total_col8 = (total_col5/total_col3)
                         total_col8 = isNaN(total_col8) ? 0 : isFinite(total_col8) ? ((total_col8-1)*100) : 0;
-                        
+
                         // Totales
                         arrTotales.push({
                               col1 : total_col1,
@@ -393,7 +393,7 @@ function createExcelExportXLXS() {
             let share_porcentaje_planilla_perdoc = 0
             let share_porcentaje_planilla_pernnodoc = 0
 
-            // REMUNERACION FIJAS 
+            // REMUNERACION FIJAS
             let totalrem_col1 = arrTotales[0].col1 + arrTotales[1].col1
             let totalrem_col2 = arrTotales[0].col2 + arrTotales[1].col2
             let totalrem_col3 = arrTotales[0].col3 + arrTotales[1].col3
@@ -418,7 +418,7 @@ function createExcelExportXLXS() {
             share_porcentaje_planilla_perdoc = arrTotales[0].col5 / totalrem_col5
             share_porcentaje_planilla_pernnodoc = arrTotales[1].col5 / totalrem_col5
 
-            // REMUNERACION FIJAS 
+            // REMUNERACION FIJAS
 
             // TOTAL 1ER CUADRO
             let total_1_avance = totalrem_col5 / totalrem_col2
@@ -440,31 +440,31 @@ function createExcelExportXLXS() {
             // TOTAL 1ER CUADRO
 
             dataArray.push(addRowExcel(cabeceras))
-          
+
             // 2DO CUADRO
 
             index = 0;
-            cells = []  
+            cells = []
             cabeceras.forEach((row) => {
                   cells.push(
-                        { 
-                              value: row, 
+                        {
+                              value: row,
                               width: (index <= 3 ) ? 280 : 150,
-                              background: (index >= 3 ) ? "#1f4e78" : "#ffffff", 
-                              textAlign: "center", 
-                              color: "#ffffff", //(index <= 2 ) ? "#ffffff" : "#000000", 
-                              fontSize: 10, 
-                              bold: true, 
-                              height: 180, 
-                              borderBottom:  { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 } , 
-                              borderLeft: { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 }, 
-                              borderTop: { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 }, 
+                              background: (index >= 3 ) ? "#1f4e78" : "#ffffff",
+                              textAlign: "center",
+                              color: "#ffffff", //(index <= 2 ) ? "#ffffff" : "#000000",
+                              fontSize: 10,
+                              bold: true,
+                              height: 180,
+                              borderBottom:  { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 } ,
+                              borderLeft: { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 },
+                              borderTop: { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 },
                               borderRight: { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 }
                         })
                   index++;
             })
             dataArray.push({ cells: cells })
-            
+
             index = -1;
             Subcat_CONCEPTO = ''
             total_col1 = 0;
@@ -481,27 +481,27 @@ function createExcelExportXLXS() {
                   if (nextCuadro) return
                   if ( item.Cat_DESC.trim() == "SOPORTE EN SEDES" ) {
                         index++
-                        cells = [] 
+                        cells = []
                         if ( Subcat_CONCEPTO != item.Subcat_CONCEPTO ) {
                               if ( index!= 0) {
                                     total_col1 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col1 : 0 ) ; }, 0)
                                     total_col2 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col2 : 0 ) ; }, 0)
                                     total_col3 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col3 : 0 ) ; }, 0)
-                                    
+
                                     total_col4 = total_col3 / total_col1
                                     total_col4 = isNaN(total_col4) ? 0 : (total_col4*100)
-            
+
                                     total_col5 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col5 : 0 ) ; }, 0)
-            
+
                                     total_col6 = total_col5 / total_col2
                                     total_col6 = isNaN(total_col6) ? 0 : (total_col6*100)
-            
+
                                     total_col7 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col7 : 0 ) ; }, 0)
-            
+
                                     // PORCENTAJE
                                     total_col8 = (total_col5/total_col3)
                                     total_col8 = isNaN(total_col8) ? 0 : isFinite(total_col8) ? ((total_col8-1)*100) : 0;
-                                    
+
                                     // Totales
                                     arrTotales.push({
                                           col1 : total_col1,
@@ -513,8 +513,8 @@ function createExcelExportXLXS() {
                                           col7 : total_col7,
                                           col8 : total_col8
                                     })
-            
-            
+
+
                                     cells = []
                                     cells.push({ value: 'TOTAL ' + Subcat_CONCEPTO, fontSize: 10, background: "#D3E8FF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                                     cells.push({ value: '', fontSize: 10, background: "#D3E8FF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
@@ -529,10 +529,10 @@ function createExcelExportXLXS() {
                                     cells.push({ value: (formatImport(total_col8) * 1) / 100, type:"number", format: "0%", fontSize: 10, background: "#D3E8FF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                                     dataArray.push({ cells: cells })
                                     dataArray.push(addRowExcel(cabeceras))
-                                    
+
                               } else {
                                     dataArray.push(addRowExcel(cabeceras))
-                                    // 
+                                    //
                                     cells = []
                                     cells.push({ value: 'SOPORTE EN SEDES' + Subcat_CONCEPTO, fontSize: 10, background: "#D3E8FF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                                     cells.push({ value: '', fontSize: 10, background: "#D3E8FF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
@@ -546,22 +546,22 @@ function createExcelExportXLXS() {
                                     cells.push({ value: 0, type:"number", format: "#,##0", fontSize: 10, background: "#D3E8FF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                                     cells.push({ value: 0, type:"number", format: "0%", fontSize: 10, background: "#D3E8FF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                                     dataArray.push({ cells: cells })
-                                    // 
+                                    //
                                     dataArray.push(addRowExcel(cabeceras))
                               }
-                              
-                              
+
+
                               Subcat_CONCEPTO = item.Subcat_CONCEPTO
-                              
+
                               if ( item.Cat_DESC.trim() == 'PRACTICANTES') return;
-      
+
                               cells = []
                               cells.push({ value: item.Campo1, fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: item.Campo2, fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: item.Subcat_DESC, fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: formatImport(item.col1) * 1, type:"number", format: "#,##0", fontSize: 10, background: "#ffffff", textAlign: "right", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: formatImport(item.col2) * 1, type:"number", format: "#,##0", fontSize: 10, background: "#ffffff", textAlign: "right", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
-                              
+
                               cells.push({ value: formatImport(item.col3) * 1, type:"number", format: "#,##0", fontSize: 10, background: "#ffffff", textAlign: "right", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: (formatImport(item.col4) * 1) / 100, type:"number", format: "0%", fontSize: 10, background: "#ffffff", textAlign: "right", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: formatImport(item.col5) * 1, type:"number", format: "#,##0", fontSize: 10, background: "#ffffff", textAlign: "right", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
@@ -570,7 +570,7 @@ function createExcelExportXLXS() {
                               cells.push({ value: (formatImport(item.col8) * 1) / 100, type:"number", format: "0%", fontSize: 10, background: "#ffffff", textAlign: "right", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               dataArray.push({ cells: cells })
                         } else {
-      
+
                               cells.push({ value: item.Campo1, fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: item.Campo2, fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: item.Subcat_DESC, fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
@@ -590,21 +590,21 @@ function createExcelExportXLXS() {
                               total_col1 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col1 : 0 ) ; }, 0)
                               total_col2 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col2 : 0 ) ; }, 0)
                               total_col3 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col3 : 0 ) ; }, 0)
-                              
+
                               total_col4 = total_col3 / total_col1
                               total_col4 = isNaN(total_col4) ? 0 : (total_col4*100)
-      
+
                               total_col5 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col5 : 0 ) ; }, 0)
-      
+
                               total_col6 = total_col5 / total_col2
                               total_col6 = isNaN(total_col6) ? 0 : (total_col6*100)
-      
+
                               total_col7 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col7 : 0 ) ; }, 0)
-      
+
                               // PORCENTAJE
                               total_col8 = (total_col5/total_col3)
                               total_col8 = isNaN(total_col8) ? 0 : isFinite(total_col8) ? ((total_col8-1)*100) : 0;
-                              
+
                               // Totales
                               arrTotales.push({
                                     col1 : total_col1,
@@ -616,7 +616,7 @@ function createExcelExportXLXS() {
                                     col7 : total_col7,
                                     col8 : total_col8
                               })
-      
+
                               cells = []
                               cells.push({ value: 'TOTAL ' + Subcat_CONCEPTO, fontSize: 10, background: "#D3E8FF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: '', fontSize: 10, background: "#D3E8FF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
@@ -637,7 +637,7 @@ function createExcelExportXLXS() {
 
             let indexSoporteEnSedes = 0
             $.each(dataArray , function (i, item) {
-                  $.each(item.cells , function (j, jitem) {   
+                  $.each(item.cells , function (j, jitem) {
                         if(jitem.value == 'SOPORTE EN SEDES') {
                               indexSoporteEnSedes = i;
                         }
@@ -685,28 +685,28 @@ function createExcelExportXLXS() {
             cells.push({ value: '', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             dataArray.push({ cells: cells })
             // TOTAL 2DO CUADRO
-            
+
             // 2DO CUADRO
 
             dataArray.push(addRowExcel(cabeceras))
-          
+
             // 3ER CUADRO
             index = 0;
-            cells = []  
+            cells = []
             cabeceras.forEach((row) => {
                   cells.push(
-                        { 
-                              value: row, 
+                        {
+                              value: row,
                               width: (index <= 3 ) ? 280 : 150,
-                              background: (index >= 3 ) ? "#1f4e78" : "#ffffff", 
-                              textAlign: "center", 
-                              color: "#ffffff", //(index <= 2 ) ? "#ffffff" : "#000000", 
-                              fontSize: 10, 
-                              bold: true, 
-                              height: 180, 
-                              borderBottom:  { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 } , 
-                              borderLeft: { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 }, 
-                              borderTop: { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 }, 
+                              background: (index >= 3 ) ? "#1f4e78" : "#ffffff",
+                              textAlign: "center",
+                              color: "#ffffff", //(index <= 2 ) ? "#ffffff" : "#000000",
+                              fontSize: 10,
+                              bold: true,
+                              height: 180,
+                              borderBottom:  { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 } ,
+                              borderLeft: { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 },
+                              borderTop: { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 },
                               borderRight: { color: (index >= 3 ) ?"#000000" : "#fff", size: 1 }
                         })
                   index++;
@@ -729,12 +729,12 @@ function createExcelExportXLXS() {
                   if (nextCuadro) return
                   if ( item.Cat_DESC.trim() == "PRACTICANTES" ) {
                         index++
-                        cells = [] 
+                        cells = []
                         if ( Subcat_CONCEPTO != item.Subcat_CONCEPTO ) {
                               if ( index!= 0) {
                               } else {
                                     dataArray.push(addRowExcel(cabeceras))
-                                    // 
+                                    //
                                     cells = []
                                     cells.push({ value: 'PRACTICANTES' + Subcat_CONCEPTO, fontSize: 10, background: "#D3E8FF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                                     cells.push({ value: '', fontSize: 10, background: "#D3E8FF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
@@ -748,19 +748,19 @@ function createExcelExportXLXS() {
                                     cells.push({ value: 0, type:"number", format: "#,##0", fontSize: 10, background: "#D3E8FF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                                     cells.push({ value: 0, type:"number", format: "0%", fontSize: 10, background: "#D3E8FF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                                     dataArray.push({ cells: cells })
-                                    // 
+                                    //
                                     dataArray.push(addRowExcel(cabeceras))
                               }
-                              
+
                               Subcat_CONCEPTO = item.Subcat_CONCEPTO
-      
+
                               cells = []
                               cells.push({ value: item.Campo1, fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: item.Campo2, fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: item.Subcat_DESC, fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: formatImport(item.col1) * 1, type:"number", format: "#,##0", fontSize: 10, background: "#ffffff", textAlign: "right", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: formatImport(item.col2) * 1, type:"number", format: "#,##0", fontSize: 10, background: "#ffffff", textAlign: "right", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
-                              
+
                               cells.push({ value: formatImport(item.col3) * 1, type:"number", format: "#,##0", fontSize: 10, background: "#ffffff", textAlign: "right", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: (formatImport(item.col4) * 1) / 100, type:"number", format: "0%", fontSize: 10, background: "#ffffff", textAlign: "right", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: formatImport(item.col5) * 1, type:"number", format: "#,##0", fontSize: 10, background: "#ffffff", textAlign: "right", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
@@ -769,7 +769,7 @@ function createExcelExportXLXS() {
                               cells.push({ value: (formatImport(item.col8) * 1) / 100, type:"number", format: "0%", fontSize: 10, background: "#ffffff", textAlign: "right", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               dataArray.push({ cells: cells })
                         } else {
-      
+
                               cells.push({ value: item.Campo1, fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: item.Campo2, fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: item.Subcat_DESC, fontSize: 10, background: "#ffffff", textAlign: "left", color: "#000000", bold: false, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
@@ -789,21 +789,21 @@ function createExcelExportXLXS() {
                               total_col1 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col1 : 0 ) ; }, 0)
                               total_col2 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col2 : 0 ) ; }, 0)
                               total_col3 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col3 : 0 ) ; }, 0)
-                              
+
                               total_col4 = total_col3 / total_col1
                               total_col4 = isNaN(total_col4) ? 0 : (total_col4*100)
-      
+
                               total_col5 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col5 : 0 ) ; }, 0)
-      
+
                               total_col6 = total_col5 / total_col2
                               total_col6 = isNaN(total_col6) ? 0 : (total_col6*100)
-      
+
                               total_col7 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col7 : 0 ) ; }, 0)
-      
+
                               // PORCENTAJE
                               total_col8 = (total_col5/total_col3)
                               total_col8 = isNaN(total_col8) ? 0 : isFinite(total_col8) ? ((total_col8-1)*100) : 0;
-                              
+
                               // Totales
                               arrTotales.push({
                                     col1 : total_col1,
@@ -815,7 +815,7 @@ function createExcelExportXLXS() {
                                     col7 : total_col7,
                                     col8 : total_col8
                               })
-      
+
                               cells = []
                               cells.push({ value: 'TOTAL ' + Subcat_CONCEPTO, fontSize: 10, background: "#D3E8FF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
                               cells.push({ value: '', fontSize: 10, background: "#D3E8FF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
@@ -838,7 +838,7 @@ function createExcelExportXLXS() {
             total_col1 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col1 : 0 ) ; }, 0)
             total_col2 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col2 : 0 ) ; }, 0)
             total_col3 = arrData.reduce(function (acc, obj) { return acc + (obj.Subcat_CONCEPTO == Subcat_CONCEPTO ? obj.col3 : 0 ) ; }, 0)
-            
+
             total_col4 = total_col3 / total_col1
             total_col4 = isNaN(total_col4) ? 0 : (total_col4*100)
 
@@ -852,7 +852,7 @@ function createExcelExportXLXS() {
             // PORCENTAJE
             total_col8 = (total_col5/total_col3)
             total_col8 = isNaN(total_col8) ? 0 : isFinite(total_col8) ? ((total_col8-1)*100) : 0;
-            
+
             // Totales
             arrTotales.push({
                   col1 : total_col1,
@@ -883,7 +883,7 @@ function createExcelExportXLXS() {
 
             let indexPracticantes = 0
             $.each(dataArray , function (i, item) {
-                  $.each(item.cells , function (j, jitem) {   
+                  $.each(item.cells , function (j, jitem) {
                         if(jitem.value == 'PRACTICANTES') {
                               indexPracticantes = i;
                         }
@@ -931,7 +931,7 @@ function createExcelExportXLXS() {
             cells.push({ value: '', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             dataArray.push({ cells: cells })
             // TOTAL 3ER CUADRO
-            
+
             dataArray.push(addRowExcel(cabeceras))
             dataArray.push(addRowExcel(cabeceras))
 
@@ -948,7 +948,7 @@ function createExcelExportXLXS() {
             cells.push({ value: 'Share % HC', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: 'Share % Planilla', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             dataArray.push({ cells: cells })
-            
+
             dataArray.push(addRowExcel(cabeceras))
 
             // let totalrem_col5 = arrTotales[0].col5 + arrTotales[1].col5
@@ -986,7 +986,7 @@ function createExcelExportXLXS() {
             cells.push({ value: share1, type:"number", format: "0%", fontSize: 10, background: "#FFFFFF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: share_porcentaje_planilla_perdoc, type:"number", format: "0%", fontSize: 10, background: "#FFFFFF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             dataArray.push({ cells: cells })
-            
+
             cells = []
             cells.push({ value: '', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: '', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
@@ -1010,7 +1010,7 @@ function createExcelExportXLXS() {
             dataArray.push({ cells: cells })
             // 3ER CUADRO
 
-            
+
 
             var workbook = new kendo.ooxml.Workbook({
                   sheets: [
@@ -1018,7 +1018,7 @@ function createExcelExportXLXS() {
                           columns: [
                               { width: 160 },
                               { width: 160 },
-                              { width: 160 },  
+                              { width: 160 },
                               { width: 100 },
                               { width: 100 },
                               { width: 100 },
@@ -1061,16 +1061,16 @@ function sumaTransferenciaInterna(Cat_DESC, col){
       });
       // let total = 0;
       arrDataTransferencia.forEach((entry) => {
-            
+
             // try {
                   if( entry.Subcat_CONCEPTO.includes('INGRESOS') ) {
                         total += entry[col];
-                  } 
+                  }
                   else {
                         total -= entry[col];
-                  } 
+                  }
             // } catch (error) {
-            //       debugger   
+            //       debugger
             // }
       });
       return total;
@@ -1111,12 +1111,12 @@ function formatImport( value ) {
       if(value == undefined) {
             return 0
       } else {
-            return (value.toFixed() * 1)//.toLocaleString('en') 
+            return (value.toFixed() * 1)//.toLocaleString('en')
       }
 }
 
 function addRowExcel(cabeceras){
-      let cells = []    
+      let cells = []
       cabeceras.forEach((row) => {
             cells.push({ value: '',borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
       })
@@ -1136,7 +1136,7 @@ function addRowExcelnHeader(nHeader, value = '', colSpan = 1, fontSize = 10){
       for (let index = 0; index < nHeader; index++) {
             cells.push({ value, colSpan, fontSize, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 }})
             value = ''
-            colSpan = 1            
+            colSpan = 1
       }
       return { cells }
 }
@@ -1145,9 +1145,10 @@ function addRowExcelnHeader(nHeader, value = '', colSpan = 1, fontSize = 10){
 function btnSearch() {
 
       $('.btnsearch').click( async function() {
-            
+
             var selectedDesde = $('#mesDesde').find('option:selected');
             var selectedHasta = $('#mesHasta').find('option:selected');
+            var selectedAno = $('#ano').find('option:selected');
 
             let mesDesdeId = selectedDesde.val() * 1
             let mesDesdeTexto = selectedDesde.text().substr(0,3)
@@ -1155,21 +1156,36 @@ function btnSearch() {
             let mesHastaId = selectedHasta.val() * 1
             let mesHastaTexto = selectedHasta.text().substr(0,3)
 
+            let anoId = selectedAno.val() * 1
+            let anoOldId = anoId - 1
             var selected = [];
-      
+
             for (let index = mesDesdeId; index <= mesHastaId; index++) {
                   selected.push( index );
             }
 
-            hejec2020meses.innerHTML = `${mesDesdeTexto}-${mesHastaTexto} EJEC-2020`
-            hejec2021meses.innerHTML = `${mesDesdeTexto}-${mesHastaTexto} EJEC-2021`
-            hvar2021montomeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-2020-2021 Monto`
-            hvar2021pocentajemeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-2020-2021 %`
-            
-            fejec2020meses.innerHTML = `${mesDesdeTexto}-${mesHastaTexto} EJEC-2020`
-            fejec2021meses.innerHTML = `${mesDesdeTexto}-${mesHastaTexto} EJEC-2021`
-            fvar2021montomeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-2020-2021 Monto`
-            fvar2021pocentajemeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-2020-2021 %`
+            henedicejec2020.innerHTML = `ENE-DIC EJEC-${anoOldId}`
+            henedicppto2021.innerHTML = `ENE-DIC PPTO-${anoId}`
+            havance2020.innerHTML = `Avance ${anoOldId}`
+            havance2021.innerHTML = `Avance ${anoId}`
+
+
+
+            hejec2020meses.innerHTML = `${mesDesdeTexto}-${mesHastaTexto} EJEC-${anoOldId}`
+            hejec2021meses.innerHTML = `${mesDesdeTexto}-${mesHastaTexto} EJEC-${anoId}`
+            hvar2021montomeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-${anoOldId}-${anoId} Monto`
+            hvar2021pocentajemeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-${anoOldId}-${anoId} %`
+
+            fejec2020meses.innerHTML = `${mesDesdeTexto}-${mesHastaTexto} EJEC-${anoOldId}`
+            fejec2021meses.innerHTML = `${mesDesdeTexto}-${mesHastaTexto} EJEC-${anoId}`
+            fvar2021montomeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-${anoOldId}-${anoId} Monto`
+            fvar2021pocentajemeses.innerHTML = `VAR-${mesDesdeTexto}-${mesHastaTexto}-${anoOldId}-${anoId} %`
+
+
+            fenedicejec2020.innerHTML = `ENE-DIC EJEC-${anoOldId}`
+            fenedicppto2021.innerHTML = `ENE-DIC PPTO-${anoId}`
+            favance2020.innerHTML = `Avance ${anoOldId}`
+            favance2021.innerHTML = `Avance ${anoId}`
 
             console.log(selected.join(','))
             data = await getDataEjecucion(`${ano.value}¦${selected.join(',')}`);

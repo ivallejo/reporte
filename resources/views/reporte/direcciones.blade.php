@@ -26,7 +26,7 @@
 </div>
 
 <div class="row text-center">
- 
+
   <div class="col-3"></div>
 
   <div class="col-lg-2 col-sm-12 col-md-2">
@@ -97,16 +97,16 @@
         <tr>
           <th class="text-center">DIRECCION</th>
           <th class="text-center">UNIDAD</th>
-          <th class="text-center">PRESUPUESTO_ANUAL_2021 INGRESOS</th>
-          <th class="text-center">PRESUPUESTO_ANUAL_2021 EGRESOS</th>
+          <th class="text-center" id="hpresupuestoanualingresos">PRESUPUESTO_ANUAL_2021 INGRESOS</th>
+          <th class="text-center" id="hpresupuestoanualegresos">PRESUPUESTO_ANUAL_2021 EGRESOS</th>
           <th class="text-center" id="hejecutadoingresosmeses">EJECUTADO_ENE-JUN INGRESOS</th>
           <th class="text-center" id="hejecutadoegresosmeses">EJECUTADO_ENE-JUN EGRESOS</th>
           <th class="text-center">COMPROMISOS* INGRESOS</th>
           <th class="text-center">COMPROMISOS* EGRESOS</th>
-          <th class="text-center">SALDO_2021 INGRESOS</th>
-          <th class="text-center">SALDO_2021 EGRESOS</th>
-          <th class="text-center">AVANCE_2021_(%) INGRESOS</th>
-          <th class="text-center">AVANCE_2021_(%) EGRESOS</th>
+          <th class="text-center" id="hsaldoegresos">SALDO_2021 INGRESOS</th>
+          <th class="text-center" id="hsaldoingresos">SALDO_2021 EGRESOS</th>
+          <th class="text-center" id="havanceingresos">AVANCE_2021_(%) INGRESOS</th>
+          <th class="text-center" id="havanceegresos">AVANCE_2021_(%) EGRESOS</th>
         </tr>
       </thead>
       <tbody id="tbody">
@@ -115,16 +115,16 @@
         <tr>
           <th class="text-center">DIRECCION</th>
           <th class="text-center">UNIDAD</th>
-          <th class="text-center">PRESUPUESTO_ANUAL_2021 INGRESOS</th>
-          <th class="text-center">PRESUPUESTO_ANUAL_2021 EGRESOS</th>
+          <th class="text-center" id="fpresupuestoanualingresos">PRESUPUESTO_ANUAL_2021 INGRESOS</th>
+          <th class="text-center" id="fpresupuestoanualegresos">PRESUPUESTO_ANUAL_2021 EGRESOS</th>
           <th class="text-center" id="fejecutadoingresosmeses">EJECUTADO_ENE-JUN INGRESOS</th>
           <th class="text-center" id="fejecutadoegresosmeses">EJECUTADO_ENE-JUN EGRESOS</th>
           <th class="text-center">COMPROMISOS* INGRESOS</th>
           <th class="text-center">COMPROMISOS* EGRESOS</th>
-          <th class="text-center">SALDO_2021 INGRESOS</th>
-          <th class="text-center">SALDO_2021 EGRESOS</th>
-          <th class="text-center">AVANCE_2021_(%) INGRESOS</th>
-          <th class="text-center">AVANCE_2021_(%) EGRESOS</th>
+          <th class="text-center" id="fsaldoegresos">SALDO_2021 INGRESOS</th>
+          <th class="text-center" id="fsaldoingresos">SALDO_2021 EGRESOS</th>
+          <th class="text-center" id="favanceingresos">AVANCE_2021_(%) INGRESOS</th>
+          <th class="text-center" id="favanceegresos">AVANCE_2021_(%) EGRESOS</th>
         </tr>
       </tfoot>
     </table>

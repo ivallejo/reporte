@@ -39,7 +39,7 @@ function configFile() {
 
                 console.log('archivo_numero', archivo_numero)
                 console.log('archivo_ano', archivo_ano)
-                
+
                 try {
                     $("#loading").show();
 
@@ -283,6 +283,7 @@ function configFile() {
                                 };
                                 trama += `${configTrama(item)}¥`;
                             });
+                            arrMaestros = []
                             arrMaestros.push(trama);
                             Swal.fire({
                                 title: "Genial!",
@@ -321,6 +322,7 @@ function configUpload() {
                 data = arrMaestros[r];
                 // debugger
                 let _data = archivo_numero + "─" + archivo_ano + "─" + data;
+                console.log('_data', _data)
                 response = await sendData(_data);
                 if (!response.success) {
                     // Swal.fire({
@@ -654,6 +656,10 @@ function configUpdated() {
             resetInpuFile();
         }
     });
+
+    $("#omitir").click(async function () {
+        $('#divupdate').hide()
+    })
 }
 
 function updateRow() {

@@ -24,7 +24,7 @@
 </div>
 
 <div class="row text-center">
- 
+
   <div class="col-3"></div>
 
   <div class="col-lg-2 col-sm-12 col-md-2">
@@ -96,13 +96,13 @@
           <th class="text-center">PROGRAMAS ACADÉMICOS</th>
           <th class="text-center">PROGRAMAS ACADÉMICOS</th>
           <th class="text-center">PROGRAMAS ACADÉMICOS</th>
-          <th class="text-center">EJECUCIÓN 2020</th>
-          <th class="text-center">PPTO-ACTUAL 2021</th>
-          <th class="text-center">EJECUCIÓN 2021</th>
+          <th class="text-center" id="hejec2020g">EJECUCIÓN 2020</th>
+          <th class="text-center" id="hpptoactual2021">PPTO-ACTUAL 2021</th>
+          <th class="text-center" id="hejec2021g">EJECUCIÓN 2021</th>
           <th class="text-center" id="hejec2020">EJEC-2020 ENE-JUN</th>
-          <th class="text-center">AVANCE 2020</th>
+          <th class="text-center" id="havance2020">AVANCE 2020</th>
           <th class="text-center" id="hejec2021">EJEC-2021 ENE-JUN</th>
-          <th class="text-center">AVANCE 2021</th>
+          <th class="text-center" id="havance2021">AVANCE 2021</th>
           <th class="text-center" id="hvarmontomeses">VAR ENE-JUN 2020-2021(MONTO)</th>
           <th class="text-center" id="hvarpocentajemeses">VAR ENE-JUN 2020-2021(%)</th>
         </tr>
@@ -114,13 +114,13 @@
           <th class="text-center">PROGRAMAS ACADÉMICOS</th>
           <th class="text-center">PROGRAMAS ACADÉMICOS</th>
           <th class="text-center">PROGRAMAS ACADÉMICOS</th>
-          <th class="text-center">EJECUCIÓN 2020</th>
-          <th class="text-center">PPTO-ACTUAL 2021</th>
-          <th class="text-center">EJECUCIÓN 2021</th>
+          <th class="text-center" id="fejec2020g">EJECUCIÓN 2020</th>
+          <th class="text-center" id="fpptoactual2021">PPTO-ACTUAL 2021</th>
+          <th class="text-center" id="fejec2021g">EJECUCIÓN 2021</th>
           <th class="text-center" id="fejec2020">EJEC-2020 ENE-JUN</th>
-          <th class="text-center">AVANCE 2020</th>
+          <th class="text-center" id="favance2020">AVANCE 2020</th>
           <th class="text-center" id="fejec2021">EJEC-2021 ENE-JUN</th>
-          <th class="text-center">AVANCE 2021</th>
+          <th class="text-center" id="favance2021">AVANCE 2021</th>
           <th class="text-center" id="fvarmontomeses">VAR ENE-JUN 2020-2021(MONTO)</th>
           <th class="text-center" id="fvarpocentajemeses">VAR ENE-JUN 2020-2021(%)</th>
         </tr>

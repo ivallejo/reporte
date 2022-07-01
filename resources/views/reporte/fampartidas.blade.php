@@ -25,7 +25,7 @@
 </div>
 
 <div class="row text-center">
- 
+
   <div class="col-3"></div>
 
   <div class="col-lg-2 col-sm-12 col-md-2">
@@ -97,8 +97,10 @@
           <th class="text-center">GRUPO DE PARTIDAS</th>
           <th class="text-center">GRUPO DE PARTIDAS</th>
           <th class="text-center" id="hejecucion2020">EJECUCIÓN ENE- JUN 2020</th>
+          <th class="text-center" id="hppto2021">PPTO INICIAL 2021</th>
           <th class="text-center" id="hejecucion2021">EJECUCIÓN ENE-JUN 2021</th>
-          <th class="text-center">VARIACIÓN 2020 VS 2021</th>
+          <th class="text-center" id="hvarpptoejec">VAR. PPTO INICAL 2021 VS EJEC 2021</th>
+          <th class="text-center" id="hvarppto">VARIACIÓN 2020 VS 2021</th>
         </tr>
       </thead>
       <tbody id="tbody">
@@ -108,8 +110,10 @@
           <th class="text-center">GRUPO DE PARTIDAS</th>
           <th class="text-center">GRUPO DE PARTIDAS</th>
           <th class="text-center" id="fejecucion2020">EJECUCIÓN ENE- JUN 2020</th>
+          <th class="text-center" id="fppto2021">PPTO INICIAL 2021</th>
           <th class="text-center" id="fejecucion2021">EJECUCIÓN ENE-JUN 2021</th>
-          <th class="text-center">VARIACIÓN 2020 VS 2021</th>
+          <th class="text-center" id="fvarpptoejec">VAR. PPTO INICAL 2021 VS EJEC 2021</th>
+          <th class="text-center" id="fvarppto">VARIACIÓN 2020 VS 2021</th>
         </tr>
       </tfoot>
     </table>
