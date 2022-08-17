@@ -177,15 +177,19 @@ function createExcelExportXLXS() {
                   return;
             }
 
+            var selectedAno = $('#ano').find('option:selected');
+            let anoId = selectedAno.val() * 1
+            let anoOldId = anoId - 1
+
             $("#msgError").hide()
             $('#exampleModal').modal('hide')
-            let cabeceras = `¦¦¦ENEDIC EJEC2020¦ENEDIC PPTO2021¦${hejec2020meses.innerHTML}¦AVANCE 2020¦${hejec2021meses.innerHTML}¦AVANCE EJEC 2021¦${hvar2021montomeses.innerHTML}¦${hvar2021pocentajemeses.innerHTML}`.split("¦");
+            let cabeceras = `¦¦¦ENEDIC EJEC${anoOldId}¦ENEDIC PPTO${anoId}¦${hejec2020meses.innerHTML}¦AVANCE ${anoOldId}¦${hejec2021meses.innerHTML}¦AVANCE EJEC ${anoId}¦${hvar2021montomeses.innerHTML}¦${hvar2021pocentajemeses.innerHTML}`.split("¦");
             let cells = []
             let dataArray = []
             let index = 0;
 
             dataArray.push(addRowExcelnHeader(12))
-            dataArray.push(addRowExcelnHeader(12, 'REPORTE DE EJECUCIÓN PRESUPUESTAL 2021', 2, 11))
+            dataArray.push(addRowExcelnHeader(12, `REPORTE DE EJECUCIÓN PRESUPUESTAL ${anoId}`, 2, 11))
             // dataArray.push(addRowExcelnHeader(12, 'Al cierre de Junio preliminar 2021 / En S/. 000', 2, 9))
             dataArray.push(addRowExcelnHeader(12, '', 2, 9))
 
@@ -415,8 +419,13 @@ function createExcelExportXLXS() {
             dataArray[5].cells[10].value = totalrem_col8
             dataArray.push(addRowExcel(cabeceras))
 
+            // debugger
             share_porcentaje_planilla_perdoc = arrTotales[0].col5 / totalrem_col5
+            share_porcentaje_planilla_perdoc = isNaN(share_porcentaje_planilla_perdoc) ? 0 : isFinite(share_porcentaje_planilla_perdoc) ? share_porcentaje_planilla_perdoc: 0;
+
             share_porcentaje_planilla_pernnodoc = arrTotales[1].col5 / totalrem_col5
+            share_porcentaje_planilla_pernnodoc = isNaN(share_porcentaje_planilla_pernnodoc) ? 0 : isFinite(share_porcentaje_planilla_pernnodoc) ? share_porcentaje_planilla_pernnodoc: 0;
+
 
             // REMUNERACION FIJAS
 
@@ -967,6 +976,7 @@ function createExcelExportXLXS() {
             let H2O = HC2/HC1;
             H2O = isNaN(H2O) ? 0 : isFinite(H2O) ? ((H2O-1)) : 0;
 
+            // debugger
             let H3O = HC4/HC3;
             H3O = isNaN(H3O) ? 0 : isFinite(H3O) ? ((H3O-1)) : 0;
 
@@ -987,6 +997,7 @@ function createExcelExportXLXS() {
             cells.push({ value: share_porcentaje_planilla_perdoc, type:"number", format: "0%", fontSize: 10, background: "#FFFFFF", textAlign: "right", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             dataArray.push({ cells: cells })
 
+            // debugger
             cells = []
             cells.push({ value: '', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })
             cells.push({ value: '', fontSize: 10, background: "#FFFFFF", textAlign: "left", color: "#000000", bold: true, height: 100, borderBottom: { color: "#ffffff", size: 1 }, borderLeft: { color: "#ffffff", size: 1 }, borderTop: { color: "#ffffff", size: 1 }, borderRight: { color: "#ffffff", size: 1 } })

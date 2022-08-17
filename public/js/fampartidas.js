@@ -139,15 +139,20 @@ function createExcelExportXLXS() {
 // arrData
       btnDownload.onclick = function () {
 
-            let cabeceras = `GRUPO DE PARTIDAS¦${hejecucion2020.innerHTML}¦${hppto2021.innerHTML}¦${hejecucion2021.innerHTML}¦VAR. PPTO INICAL 2021 VS EJEC 2021¦VARIACIÓN 2020 VS 2021`.split("¦");
+
+            var selectedAno = $('#ano').find('option:selected');
+            let anoId = selectedAno.val() * 1
+            let anoOldId = anoId - 1
+
+            let cabeceras = `GRUPO DE PARTIDAS¦${hejecucion2020.innerHTML}¦${hppto2021.innerHTML}¦${hejecucion2021.innerHTML}¦VAR. PPTO INICAL ${anoId} VS EJEC ${anoId}¦VARIACIÓN ${anoOldId} VS ${anoId}`.split("¦");
 
             let cells = []
             let dataArray = []
             let index = 0;
 
             dataArray.push(addRowExcelnHeader(5))
-            dataArray.push(addRowExcelnHeader(5, 'REPORTE DE EJECUCIÓN PRESUPUESTAL 2021', 2, 11))
-            dataArray.push(addRowExcelnHeader(5, 'Al cierre de Junio preliminar 2021 / En S/. 000', 2, 9))
+            dataArray.push(addRowExcelnHeader(5, `REPORTE DE EJECUCIÓN PRESUPUESTAL ${anoId}`, 2, 11))
+            // dataArray.push(addRowExcelnHeader(5, 'Al cierre de Junio preliminar 2021 / En S/. 000', 2, 9))
             // dataArray.push(addRowExcelnHeader(5))
             // dataArray.push(addRowExcelnHeader(5))
 

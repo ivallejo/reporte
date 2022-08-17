@@ -195,7 +195,11 @@ function createExcelExportXLXS() {
             let mesDesdeTexto = selectedDesde.text().substr(0,3)
             let mesHastaTexto = selectedHasta.text().substr(0,3)
             // let cabeceras = `DIRECCIÓN / UNIDAD¦PARTIDA¦DESCRIPCIÓN PARTIDA¦INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS¦EJECUCIÓN 2021¦${hejec2020}¦Avance 2020¦${hejec2021}¦Avance 2021¦${hvarmontomeses}¦${hvarpocentajemeses}`.split("¦");
-            let cabeceras = `DIRECCIÓN / UNIDAD¦PARTIDA¦DESCRIPCIÓN PARTIDA¦PRESUPUESTO ANUAL 2021¦EJECUTADO ${mesDesdeTexto}-${mesHastaTexto}¦COMPROMISOS*¦SALDO 2021¦AVANCE 2021 (%)`.split("¦");
+
+            var selectedAno = $('#ano').find('option:selected');
+            let anoId = selectedAno.val() * 1
+
+            let cabeceras = `DIRECCIÓN / UNIDAD¦PARTIDA¦DESCRIPCIÓN PARTIDA¦PRESUPUESTO ANUAL ${anoId}¦EJECUTADO ${mesDesdeTexto}-${mesHastaTexto}¦COMPROMISOS*¦SALDO ${anoId}¦AVANCE ${anoId} (%)`.split("¦");
             let cabeceras2 = `INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS`.split("¦");
 
             let cells = []
@@ -203,7 +207,7 @@ function createExcelExportXLXS() {
             let index = 0;
 
             dataArray.push(addRowExcelnHeader(11))
-            dataArray.push(addRowExcelnHeader(11, 'REPORTE DE EJECUCIÓN PRESUPUESTAL 2021', 2, 11))
+            dataArray.push(addRowExcelnHeader(11, `REPORTE DE EJECUCIÓN PRESUPUESTAL ${anoId}`, 2, 11))
             // dataArray.push(addRowExcelnHeader(11, 'Al cierre de Junio preliminar 2021 / En S/. 000', 2, 9))
             dataArray.push(addRowExcelnHeader(11, '', 2, 9))
             // dataArray.push(addRowExcelnHeader(5))

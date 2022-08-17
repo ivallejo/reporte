@@ -181,7 +181,11 @@ function createExcelExportXLXS() {
             let mesDesdeTexto = selectedDesde.text().substr(0,3)
             let mesHastaTexto = selectedHasta.text().substr(0,3)
 
-            let cabeceras0 = `DIRECCIÓN / UNIDAD¦PRESUPUESTO ANUAL 2021¦EJECUTADO ${mesDesdeTexto}-${mesHastaTexto}*¦COMPROMISOS*¦SALDO 2021¦AVANCE 2021 (%)`.split("¦");
+            var selectedAno = $('#ano').find('option:selected');
+            let anoId = selectedAno.val() * 1
+            let anoOldId = anoId - 1
+
+            let cabeceras0 = `DIRECCIÓN / UNIDAD¦PRESUPUESTO ANUAL ${anoId}¦EJECUTADO ${mesDesdeTexto}-${mesHastaTexto}*¦COMPROMISOS*¦SALDO ${anoId}¦AVANCE ${anoId} (%)`.split("¦");
 
             let cabeceras = "INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS¦INGRESOS¦EGRESOS".split("¦");
             let cells = []
@@ -190,7 +194,7 @@ function createExcelExportXLXS() {
 
 
             dataArray.push(addRowExcelnHeader(12))
-            dataArray.push(addRowExcelnHeader(12, 'REPORTE DE EJECUCIÓN PRESUPUESTAL 2021', 3, 11))
+            dataArray.push(addRowExcelnHeader(12, `REPORTE DE EJECUCIÓN PRESUPUESTAL ${anoId}`, 3, 11))
             // dataArray.push(addRowExcelnHeader(12, 'Al cierre de Junio preliminar 2021 / En S/. 000', 3, 9))
             dataArray.push(addRowExcelnHeader(12, '', 3, 9))
 

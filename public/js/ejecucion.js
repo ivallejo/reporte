@@ -210,13 +210,19 @@ function createExcelExportXLXS() {
       // arrData
       btnDownload.onclick = function () {
             // let cabeceras = "CONCEPTO¦FAMILIA DE PARTIDA¦DETALLE¦ENERO¦FEBRERO¦MARZO¦ABRIL¦MAYO¦JUNIO¦JULIO¦AGOSTO¦SEPTIEMBRE¦OCTUBRE¦NOVIEMBRE¦DICIEMBRE¦EJEC2020 ENEDIC¦PPTO2021 ENEDIC¦EJEC2020 ENEJUN¦AVANCE 2020¦EJEC2021 ENEJUN¦AVANCE EJEC 2021¦COMPROMISOS 2021¦EJEC+COMP 2021¦VAR ENE-JUN 2020-2021/Monto¦VAR ENE-JUN 2020-2021/%¦SALDO 2021/Monto¦SALDO 2021/%".split("¦");
-            let cabeceras = `CONCEPTO¦FAMILIA DE PARTIDA¦DETALLE¦EJEC2020 ENEDIC¦PPTO2021 ENEDIC¦${hejec2020meses.innerHTML}¦AVANCE 2020¦${hejec2021meses.innerHTML}¦AVANCE EJEC 2021¦COMPROMISOS 2021¦EJEC+COMP 2021¦${hvar2021montomeses.innerHTML}¦${hvar2021pocentajemeses.innerHTML}¦SALDO 2021/Monto¦SALDO 2021/%`.split("¦");
+            // let cabeceras = `CONCEPTO¦FAMILIA DE PARTIDA¦DETALLE¦EJEC2020 ENEDIC¦PPTO2021 ENEDIC¦${hejec2020meses.innerHTML}¦AVANCE 2020¦${hejec2021meses.innerHTML}¦AVANCE EJEC 2021¦COMPROMISOS 2021¦EJEC+COMP 2021¦${hvar2021montomeses.innerHTML}¦${hvar2021pocentajemeses.innerHTML}¦SALDO 2021/Monto¦SALDO 2021/%`.split("¦");
+
+            var selectedAno = $('#ano').find('option:selected');
+            let anoId = selectedAno.val() * 1
+            let anoOldId = anoId - 1
+
+            let cabeceras = `CONCEPTO¦FAMILIA DE PARTIDA¦DETALLE¦EJEC${anoOldId} ENEDIC¦PPTO${anoId} ENEDIC¦${hejec2020meses.innerHTML}¦AVANCE ${anoOldId}¦${hejec2021meses.innerHTML}¦AVANCE EJEC ${anoId}¦COMPROMISOS ${anoId}¦EJEC+COMP ${anoId}¦${hvar2021montomeses.innerHTML}¦${hvar2021pocentajemeses.innerHTML}¦SALDO ${anoId}/Monto¦SALDO ${anoId}/%`.split("¦");
             let cells = []
             let dataArray = []
             let index = 0;
 
             dataArray.push(addRowExcelnHeader(15))
-            dataArray.push(addRowExcelnHeader(12, 'REPORTE DE EJECUCIÓN PRESUPUESTAL 2021', 2, 11))
+            dataArray.push(addRowExcelnHeader(12, `REPORTE DE EJECUCIÓN PRESUPUESTAL ${anoId}`, 2, 11))
             // dataArray.push(addRowExcelnHeader(12, 'Al cierre de Junio preliminar 2021 / En S/. 000', 2, 9))
             dataArray.push(addRowExcelnHeader(12, '', 2, 9))
 

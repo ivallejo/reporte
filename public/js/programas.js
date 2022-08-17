@@ -168,14 +168,18 @@ function createExcelExportXLXS() {
 // arrData
       btnDownload.onclick = function () {
 
-            let cabeceras = `PROGRAMAS ACADÉMICOS¦EJECUCIÓN 2020¦PPTO ACTUAL 2021¦EJECUCIÓN 2021¦${hejec2020.innerHTML}¦Avance 2020¦${hejec2021.innerHTML}¦Avance 2021¦${hvarmontomeses.innerHTML}¦${hvarpocentajemeses.innerHTML}`.split("¦");
+            var selectedAno = $('#ano').find('option:selected');
+            let anoId = selectedAno.val() * 1
+            let anoOldId = anoId - 1
+
+            let cabeceras = `PROGRAMAS ACADÉMICOS¦EJECUCIÓN ${anoOldId}¦PPTO ACTUAL ${anoId}¦EJECUCIÓN ${anoId}¦${hejec2020.innerHTML}¦Avance ${anoOldId}¦${hejec2021.innerHTML}¦Avance ${anoId}¦${hvarmontomeses.innerHTML}¦${hvarpocentajemeses.innerHTML}`.split("¦");
 
             let cells = []
             let dataArray = []
             let index = 0;
 
             dataArray.push(addRowExcelnHeader(11))
-            dataArray.push(addRowExcelnHeader(11, 'REPORTE DE EJECUCIÓN PRESUPUESTAL 2021', 2, 11))
+            dataArray.push(addRowExcelnHeader(11, `REPORTE DE EJECUCIÓN PRESUPUESTAL ${anoId}`, 2, 11))
             // dataArray.push(addRowExcelnHeader(11, 'Al cierre de Junio preliminar 2021 / En S/. 000', 2, 9))
             dataArray.push(addRowExcelnHeader(11, '', 2, 9))
             // dataArray.push(addRowExcelnHeader(5))
